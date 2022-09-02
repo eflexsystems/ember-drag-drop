@@ -11,7 +11,7 @@ module('Integration | Helpers', function (hooks) {
   const collection = ['hiphop', 'jazz', 'funk'];
   const template = hbs`
     {{#each this.collection as |genre index|}}
-    
+
       <DraggableObject class={{genre}} @coordinator={{this.coordinator}} @content={{genre}}>
         <div class="item">{{this.genre}}</div>
       </DraggableObject>
@@ -27,7 +27,7 @@ module('Integration | Helpers', function (hooks) {
 
     coordinator.on('objectMoved', function (ops) {
       assert.equal(ops.obj, 'hiphop');
-      assert.equal(ops.target.destination, 1);
+      assert.equal(ops.target.args.destination, 1);
     });
 
     this.set('collection', collection);
@@ -48,7 +48,7 @@ module('Integration | Helpers', function (hooks) {
 
     coordinator.on('objectMoved', function (ops) {
       assert.equal(ops.obj, 'jazz');
-      assert.equal(ops.target.destination, 2);
+      assert.equal(ops.target.args.destination, 2);
     });
 
     this.set('collection', collection);
