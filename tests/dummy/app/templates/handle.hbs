@@ -1,10 +1,10 @@
 <h3>Drag and Drop With a handle</h3>
 
-<DraggableObjectTarget 
-  @action={{this.dragResult}} 
-  @resultText="Drag is Complete" 
-  @dragOverAction={{this.draggingOverTarget}} 
-  @dragOutAction={{this.leftDragTarget}} 
+<DraggableObjectTarget
+  @action={{this.dragResult}}
+  @resultText="Drag is Complete"
+  @dragOverAction={{this.draggingOverTarget}}
+  @dragOutAction={{this.leftDragTarget}}
   @overrideClass="dropTarget">
   {{#if this.dragFinishText}}
     {{this.dragFinishText}}
@@ -13,10 +13,10 @@
   {{/if}}
 </DraggableObjectTarget>
 
-<DraggableObject 
-  @content={{this.myObject}} 
-  @dragStartAction={{this.dragStart}} 
-  @dragEndAction={{this.dragEnd}}
+<DraggableObject
+  @content={{this.myObject}}
+  @onDragStart={{this.dragStart}}
+  @onDragEnd={{this.dragEnd}}
   @overrideClass="dragObject"
   @dragHandle=".js-dragHandle">
 

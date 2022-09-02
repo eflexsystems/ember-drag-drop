@@ -17,8 +17,7 @@ export default class DraggableObjectTarget extends Component {
    * @private
    */
 
-  @tracked
-  acceptsDrag = false;
+  @tracked acceptsDrag = false;
 
   /**
    * Will be true when the component is dragged over itself. Can use
@@ -28,11 +27,9 @@ export default class DraggableObjectTarget extends Component {
    * @private
    */
 
-  @tracked
-  selfDrop = false;
+  @tracked selfDrop = false;
 
-  @tracked
-  isOver = false;
+  @tracked isOver = false;
 
   /**
    * Tells the browser we have an acceptable drag event.

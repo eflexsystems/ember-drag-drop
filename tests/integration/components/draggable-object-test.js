@@ -28,10 +28,14 @@ module('Integration | Component | draggable object', function (hooks) {
 
     let event = new MockEvent();
 
-    this.set('dragMoveAction', (event) => assert.ok(event));
+    this.set('onDrag', (event) => assert.ok(event));
 
     await render(hbs`
-      <DraggableObject @content={{this.myObject}} class='draggable-object' @dragMoveAction={{fn this.dragMoveAction}}>
+      <DraggableObject
+        @content={{this.myObject}}
+        class='draggable-object'
+        @onDrag={{this.onDrag}}
+      >
         Hi
         <span class="js-dragHandle dragHandle"></span>
         </DraggableObject>
@@ -106,12 +110,12 @@ module('Integration | Component | draggable object', function (hooks) {
 
     let event = new MockEvent();
 
-    this.set('dragStartAction', (event) => assert.ok(event));
+    this.set('onDragStart', (event) => assert.ok(event));
 
-    this.set('dragEndAction', (event) => assert.ok(event));
+    this.set('onDragEnd', (event) => assert.ok(event));
 
     await render(hbs`
-      <DraggableObject class='draggable-object' @dragStartHook={{fn this.dragStartAction}} @dragEndHook={{fn this.dragEndAction}}>
+      <DraggableObject class='draggable-object' @dragStartHook={{fn this.onDragStart}} @dragEndHook={{fn this.onDragEnd}}>
       </DraggableObject>
     `);
 

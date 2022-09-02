@@ -85,7 +85,12 @@ module('Integration | Component | sortable objects', function (hooks) {
     await render(hbs`
       <SortableObjects @sortableObjectList={{this.pojoData}} @sortEndAction={{fn this.sortEndAction}} class='sortContainer' @sortingScope='sortable-objects'>
         {{#each this.pojoData as |item|}}
-          <DraggableObject @content={{item}} @overrideClass='sortObject' @isSortable={{true}} @sortingScope='sortable-objects'>
+          <DraggableObject
+            class="sortObject"
+            @content={{item}}
+            @isSortable={{true}}
+            @sortingScope='sortable-objects'
+          >
             {{item.title}}
           </DraggableObject>
         {{/each}}
@@ -142,9 +147,13 @@ module('Integration | Component | sortable objects', function (hooks) {
     });
 
     await render(hbs`
-      <SortableObjects @sortableObjectList={{this.pojoData}} @sortEndAction={{fn this.sortEndAction}} class='sortContainer' @useSwap={{false}}>
+      <SortableObjects @sortableObjectList={{this.pojoData}} @sortEndAction={{this.sortEndAction}} class='sortContainer' @useSwap={{false}}>
         {{#each this.pojoData as |item|}}
-          <DraggableObject @content={{item}} @overrideClass='sortObject' @isSortable={{true}}>
+          <DraggableObject
+            class="sortObject"
+            @content={{item}}
+            @isSortable={{true}}
+          >
             {{item.title}}
           </DraggableObject>
         {{/each}}
@@ -197,9 +206,13 @@ module('Integration | Component | sortable objects', function (hooks) {
     });
 
     await render(hbs`
-      <SortableObjects @sortableObjectList={{this.pojoData}} @sortEndAction={{fn this.sortEndAction}} class='sortContainer' @enableSort={{false}}>
+      <SortableObjects @sortableObjectList={{this.pojoData}} @sortEndAction={{this.sortEndAction}} class='sortContainer' @enableSort={{false}}>
       {{#each this.pojoData as |item|}}
-        <DraggableObject @content={{item}} @overrideClass='sortObject' @isSortable={{false}}>
+        <DraggableObject
+          class='sortObject'
+          @content={{item}}
+          @isSortable={{false}}
+        >
           {{item.title}}
         </DraggableObject>
         {{/each}}
@@ -251,11 +264,15 @@ module('Integration | Component | sortable objects', function (hooks) {
     await render(hbs`
       <SortableObjects @sortableObjectList={{this.pojoData}} @useSwap={{false}} @inPlace={{true}}>
         {{#each this.pojoData as |item|}}
-          <DraggableObject @content={{item}} @overrideClass='sortObject' @isSortable={{true}}>
+          <DraggableObject
+            class='sortObject'
+            @content={{item}}
+            @isSortable={{true}}
+          >
             {{item.title}}
           </DraggableObject>
         {{/each}}
-      </SortableObjects> 
+      </SortableObjects>
     `);
 
     assert.equal(findAll('.sortObject').length, 4);

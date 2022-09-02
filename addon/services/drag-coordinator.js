@@ -46,7 +46,7 @@ export default Service.extend({
   inPlace: alias('sortComponentController.inPlace'),
 
   pushSortComponent(component) {
-    const sortingScope = component.get('sortingScope');
+    const sortingScope = component.sortingScope;
     if (!this.sortComponents[sortingScope]) {
       this.sortComponents[sortingScope] = A();
     }
@@ -54,7 +54,7 @@ export default Service.extend({
   },
 
   removeSortComponent(component) {
-    const sortingScope = component.get('sortingScope');
+    const sortingScope = component.sortingScope;
     this.sortComponents[sortingScope].removeObject(component);
   },
 
@@ -72,12 +72,12 @@ export default Service.extend({
     this.set('currentOffsetItem', null);
   },
 
-  draggingOver(event, emberObject) {
+  draggingOver(event, emberObject, element) {
     const currentOffsetItem = this.currentOffsetItem;
-    const pos = this.relativeClientPosition(emberObject.element, event);
+    const pos = this.relativeClientPosition(element, event);
     const hasSameSortingScope =
-      this.get('currentDragItem.sortingScope') ===
-      emberObject.get('sortingScope');
+      this.currentDragItem.sortingScope ===
+      emberObject.sortingScope;
     let moveDirections = [];
 
     if (!this.lastEvent) {
@@ -169,15 +169,15 @@ export default Service.extend({
     const isEnabled = Object.keys(this.sortComponents).length;
     const draggingItem = this.currentDragItem;
     const sortComponents =
-      this.sortComponents[draggingItem.get('sortingScope')];
+      this.sortComponents[draggingItem.sortingScope];
 
     if (!isEnabled) {
       return;
     }
 
     this.moveObjectPositions(
-      draggingItem.get('content'),
-      overElement.get('content'),
+      draggingItem.args.content,
+      overElement.args.content,
       sortComponents
     );
 
