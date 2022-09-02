@@ -76,8 +76,7 @@ export default Service.extend({
     const currentOffsetItem = this.currentOffsetItem;
     const pos = this.relativeClientPosition(element, event);
     const hasSameSortingScope =
-      this.currentDragItem.sortingScope ===
-      emberObject.sortingScope;
+      this.currentDragItem.sortingScope === emberObject.sortingScope;
     let moveDirections = [];
 
     if (!this.lastEvent) {
@@ -168,8 +167,7 @@ export default Service.extend({
   moveElements(overElement) {
     const isEnabled = Object.keys(this.sortComponents).length;
     const draggingItem = this.currentDragItem;
-    const sortComponents =
-      this.sortComponents[draggingItem.sortingScope];
+    const sortComponents = this.sortComponents[draggingItem.sortingScope];
 
     if (!isEnabled) {
       return;
