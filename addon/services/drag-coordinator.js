@@ -127,19 +127,19 @@ export default Service.extend({
 
   moveObjectPositions(a, b, sortComponents) {
     const aSortable = sortComponents.find((component) => {
-      return component.get('sortableObjectList').find((sortable) => {
+      return component.sortableObjectList.find((sortable) => {
         return isEqual(sortable, a);
       });
     });
     const bSortable = sortComponents.find((component) => {
-      return component.get('sortableObjectList').find((sortable) => {
+      return component.sortableObjectList.find((sortable) => {
         return isEqual(sortable, b);
       });
     });
     const swap = aSortable === bSortable;
 
     if (swap) {
-      let list = aSortable.get('sortableObjectList');
+      let list = aSortable.sortableObjectList;
       if (!this.inPlace) {
         list = A(list.toArray());
       }
@@ -155,8 +155,8 @@ export default Service.extend({
       }
     } else {
       // Move if items are in different sortable-objects component
-      const aList = aSortable.get('sortableObjectList');
-      const bList = bSortable.get('sortableObjectList');
+      const aList = aSortable.sortableObjectList;
+      const bList = bSortable.sortableObjectList;
 
       // Remove from aList and insert into bList
       aList.removeObject(a);
@@ -178,10 +178,6 @@ export default Service.extend({
       overElement.args.content,
       sortComponents
     );
-
-    sortComponents.forEach((component) => {
-      component.rerender();
-    });
   },
 
   relativeClientPosition(el, event) {

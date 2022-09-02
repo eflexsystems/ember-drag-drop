@@ -8,8 +8,9 @@ export default class SortExample extends Controller {
   dragStart(object) {
     console.log('Drag Start', object);
   }
+
   @action
-  sortEndAction() {
+  onSortEnd() {
     console.log('Sort Ended', this.get('model.pages'));
   }
 }

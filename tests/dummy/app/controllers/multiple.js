@@ -19,11 +19,11 @@ export default class SimpleExample extends Controller {
   ]);
 
   @action
-  sortEndAction() {
+  onSortEnd() {
     console.log('Sort Ended', this.sortableObjectList);
   }
   @action
-  sortEndAction2() {
+  onSortEnd2() {
     console.log('Sort Ended on second list', this.sortableObjectList2);
   }
 }

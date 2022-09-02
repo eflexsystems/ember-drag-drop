@@ -8,7 +8,7 @@
   <div class="u-pullLeft">
     <SortableObjects
       @sortableObjectList={{this.sortableObjectList}}
-      @sortEndAction={{this.sortEndAction}}
+      @onSortEnd={{this.onSortEnd}}
       @sortingScope="a"
     >
       {{#each this.sortableObjectList as |item|}}
@@ -46,7 +46,7 @@
   <div class="u-pullLeft">
     <SortableObjects
       @sortableObjectList={{this.sortableObjectList2}}
-      @sortEndAction={{this.sortEndAction2}}
+      @onSortEnd={{this.onSortEnd2}}
       @sortingScope="a"
     >
       {{#each this.sortableObjectList2 as |item|}}

@@ -2,9 +2,9 @@
 <p>Drag any box to another position and drop to re-sort the list</p>
 
 <div class="u-pullLeft">
-  <SortableObjects 
-    @sortableObjectList={{this.model.pages}} 
-    @sortEndAction={{this.sortEndAction}} 
+  <SortableObjects
+    @sortableObjectList={{this.model.pages}}
+    @onSortEnd={{this.onSortEnd}}
     @enableSort={{true}}
   >
     {{#each this.model.pages as |item|}}
@@ -28,6 +28,5 @@
   <br>Controller is here: <a href="https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/controllers/sortdata.js" target="_blank" rel="noopener noreferrer">https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/controllers/sortdata.js</a>
   <br>Route is here: <a href="https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/routes/sortdata.js" target="_blank" rel="noopener noreferrer">https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/routes/sortdata.js</a>
 </div>
-
 
 

@@ -72,7 +72,7 @@ module('Integration | Component | sortable objects', function (hooks) {
 
     this.set('pojoData', pojoData);
 
-    this.set('sortEndAction', () => {
+    this.set('onSortEnd', () => {
       const pojoObj = this.pojoData;
       //make sure object items are in the right order
       assert.deepEqual(
@@ -83,7 +83,7 @@ module('Integration | Component | sortable objects', function (hooks) {
     });
 
     await render(hbs`
-      <SortableObjects @sortableObjectList={{this.pojoData}} @sortEndAction={{fn this.sortEndAction}} class='sortContainer' @sortingScope='sortable-objects'>
+      <SortableObjects @sortableObjectList={{this.pojoData}} @onSortEnd={{fn this.onSortEnd}} class='sortContainer' @sortingScope='sortable-objects'>
         {{#each this.pojoData as |item|}}
           <DraggableObject
             class="sortObject"
@@ -136,7 +136,7 @@ module('Integration | Component | sortable objects', function (hooks) {
 
     this.set('pojoData', pojoData);
 
-    this.set('sortEndAction', () => {
+    this.set('onSortEnd', () => {
       const pojoObj = this.pojoData;
       //make sure object items are in the right order
       assert.deepEqual(
@@ -147,7 +147,7 @@ module('Integration | Component | sortable objects', function (hooks) {
     });
 
     await render(hbs`
-      <SortableObjects @sortableObjectList={{this.pojoData}} @sortEndAction={{this.sortEndAction}} class='sortContainer' @useSwap={{false}}>
+      <SortableObjects @sortableObjectList={{this.pojoData}} @onSortEnd={{this.onSortEnd}} class='sortContainer' @useSwap={{false}}>
         {{#each this.pojoData as |item|}}
           <DraggableObject
             class="sortObject"
@@ -199,14 +199,14 @@ module('Integration | Component | sortable objects', function (hooks) {
 
     this.set('pojoData', pojoData);
 
-    // sortEndAction should not be called
-    let sortEndActionCalled = false;
-    this.set('sortEndAction', function () {
-      sortEndActionCalled = true;
+    // onSortEnd should not be called
+    let onSortEndCalled = false;
+    this.set('onSortEnd', function () {
+      onSortEndCalled = true;
     });
 
     await render(hbs`
-      <SortableObjects @sortableObjectList={{this.pojoData}} @sortEndAction={{this.sortEndAction}} class='sortContainer' @enableSort={{false}}>
+      <SortableObjects @sortableObjectList={{this.pojoData}} @onSortEnd={{this.onSortEnd}} class='sortContainer' @enableSort={{false}}>
       {{#each this.pojoData as |item|}}
         <DraggableObject
           class='sortObject'
@@ -254,7 +254,7 @@ module('Integration | Component | sortable objects', function (hooks) {
       'Items did not change order after drop'
     );
 
-    assert.false(sortEndActionCalled);
+    assert.false(onSortEndCalled);
   });
 
   test('sort in place', async function (assert) {

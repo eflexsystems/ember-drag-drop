@@ -1,57 +1,74 @@
-import Component from '@ember/component';
 import { inject as service } from '@ember/service';
-import { A } from '@ember/array';
+import Component from '@glimmer/component';
+import { action } from '@ember/object';
 
-export default Component.extend({
-  dragCoordinator: service('drag-coordinator'),
-  overrideClass: 'sortable-objects',
-  classNameBindings: ['overrideClass'],
-  enableSort: true,
-  useSwap: true,
-  inPlace: false,
-  sortingScope: 'drag-objects',
-  sortableObjectList: A(),
+export default class SortableObjects extends Component {
+  @service dragCoordinator;
 
-  init() {
-    this._super(...arguments);
+  get sortableObjectList() {
+    return this.args.sortableObjectList ?? [];
+  }
+
+  get sortingScope() {
+    return this.args.sortingScope ?? 'drag-objects';
+  }
+
+  get inPlace() {
+    return this.args.inPlace ?? true;
+  }
+
+  get useSwap() {
+    return this.args.useSwap ?? true;
+  }
+
+  get enableSort() {
+    return this.args.enableSort ?? true;
+  }
+
+  constructor() {
+    super(...arguments);
     if (this.enableSort) {
       this.dragCoordinator.pushSortComponent(this);
     }
-  },
+  }
 
-  willDestroyElement() {
-    this._super(...arguments);
+  willDestroy() {
+    super.willDestroy(...arguments);
     if (this.enableSort) {
       this.dragCoordinator.removeSortComponent(this);
     }
-  },
+  }
 
-  dragStart(event) {
+  @action
+  onDragStart(event) {
     event.stopPropagation();
     if (!this.enableSort) {
       return false;
     }
-    this.set('dragCoordinator.sortComponentController', this);
-  },
+    this.dragCoordinator.set('sortComponentController', this);
+  }
 
-  dragEnter(event) {
+  @action
+  onDragEnter(event) {
     //needed so drop event will fire
     event.stopPropagation();
     return false;
-  },
+  }
 
-  dragOver(event) {
+  @action
+  onDragOver(event) {
     //needed so drop event will fire
     event.stopPropagation();
     return false;
-  },
+  }
 
-  drop(event) {
+  @action
+  onDrop(event) {
     event.stopPropagation();
     event.preventDefault();
-    this.set('dragCoordinator.sortComponentController', undefined);
-    if (this.enableSort && this.sortEndAction) {
-      this.sortEndAction(event);
+    this.dragCoordinator.set('sortComponentController', undefined);
+    if (this.enableSort) {
+      this.args.onSortEnd?.(event);
     }
-  },
-});
+  }
+}

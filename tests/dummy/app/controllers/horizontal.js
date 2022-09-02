@@ -18,7 +18,7 @@ export default class SimpleExample extends Controller {
   ]);
 
   @action
-  sortEndAction() {
+  onSortEnd() {
     console.log('Sort Ended', this.sortableObjectList);
   }
 }
