@@ -1,18 +1,21 @@
-import EmberObject from '@ember/object';
+export default class DataTransfer {
+  payload;
+  data;
 
-var c = EmberObject.extend({
-  getData: function () {
+  constructor(props) {
+    Object.assign(this, props);
+  }
+
+  getData() {
     return this.payload;
-  },
+  }
 
-  setData: function (dataType, payload) {
-    this.set('data', { dataType: dataType, payload: payload });
-  },
-});
+  setData(dataType, payload) {
+    this.data = { dataType: dataType, payload: payload };
+  }
 
-c.reopenClass({
-  makeMockEvent: function (payload) {
-    var transfer = this.create({ payload: payload });
+  static makeMockEvent(payload) {
+    var transfer = new DataTransfer({ payload: payload });
     var res = { dataTransfer: transfer };
     res.preventDefault = function () {
       console.log('prevent default');
@@ -21,22 +24,20 @@ c.reopenClass({
       console.log('stop propagation');
     };
     return res;
-  },
+  }
 
-  createDomEvent: function (type) {
+  static createDomEvent(type) {
     var event = document.createEvent('CustomEvent');
     event.initCustomEvent(type, true, true, null);
     event.dataTransfer = {
       data: {},
-      setData: function (type, val) {
+      setData(type, val) {
         this.data[type] = val;
       },
-      getData: function (type) {
+      getData(type) {
         return this.data[type];
       },
     };
     return event;
-  },
-});
-
-export default c;
+  }
+}
