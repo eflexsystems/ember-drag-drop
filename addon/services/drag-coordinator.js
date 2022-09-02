@@ -1,7 +1,7 @@
 import Service from '@ember/service';
-import { alias } from '@ember/object/computed';
 import { A } from '@ember/array';
 import { isEqual } from '@ember/utils';
+import { tracked } from '@glimmer/tracking';
 
 function indexOf(items, a) {
   return items.findIndex(function (element) {
@@ -25,25 +25,27 @@ function shiftInPlace(items, a, b) {
   items.insertAt(bPos, a);
 }
 
-export default Service.extend({
-  sortComponentController: null,
-  currentDragObject: null,
-  currentDragEvent: null,
-  currentDragItem: null,
-  currentOffsetItem: null,
-  isMoving: false,
-  lastEvent: null,
+export default class DragCoordinator extends Service {
+  @tracked sortComponentController = null;
+  @tracked currentDragObject = null;
+  @tracked currentDragEvent = null;
+  @tracked currentDragItem = null;
+  @tracked currentOffsetItem = null;
+  @tracked isMoving = false;
+  @tracked lastEvent = null;
+  @tracked sortComponents = [];
 
-  init() {
-    this._super(...arguments);
-    // Use object for sortComponents so that we can scope per sortingScope
-    this.set('sortComponents', {});
-  },
+  get enableSort() {
+    return this.sortComponentController?.enableSort;
+  }
 
-  arrayList: alias('sortComponentController.sortableObjectList'),
-  enableSort: alias('sortComponentController.enableSort'),
-  useSwap: alias('sortComponentController.useSwap'),
-  inPlace: alias('sortComponentController.inPlace'),
+  get useSwap() {
+    return this.sortComponentController?.useSwap;
+  }
+
+  get inPlace() {
+    return this.sortComponentController?.inPlace;
+  }
 
   pushSortComponent(component) {
     const sortingScope = component.sortingScope;
@@ -51,26 +53,26 @@ export default Service.extend({
       this.sortComponents[sortingScope] = A();
     }
     this.sortComponents[sortingScope].pushObject(component);
-  },
+  }
 
   removeSortComponent(component) {
     const sortingScope = component.sortingScope;
     this.sortComponents[sortingScope].removeObject(component);
-  },
+  }
 
   dragStarted(object, event, emberObject) {
-    this.set('currentDragObject', object);
-    this.set('currentDragEvent', event);
-    this.set('currentDragItem', emberObject);
+    this.currentDragObject = object;
+    this.currentDragEvent = event;
+    this.currentDragItem = emberObject;
     event.dataTransfer.effectAllowed = 'move';
-  },
+  }
 
   dragEnded() {
-    this.set('currentDragObject', null);
-    this.set('currentDragEvent', null);
-    this.set('currentDragItem', null);
-    this.set('currentOffsetItem', null);
-  },
+    this.currentDragObject = null;
+    this.currentDragEvent = null;
+    this.currentDragItem = null;
+    this.currentOffsetItem = null;
+  }
 
   draggingOver(event, emberObject, element) {
     const currentOffsetItem = this.currentOffsetItem;
@@ -80,7 +82,7 @@ export default Service.extend({
     let moveDirections = [];
 
     if (!this.lastEvent) {
-      this.set('lastEvent', event);
+      this.lastEvent = event;
     }
 
     if (event.clientY < this.lastEvent.clientY) {
@@ -99,7 +101,7 @@ export default Service.extend({
       moveDirections.push('right');
     }
 
-    this.set('lastEvent', event);
+    this.lastEvent = event;
 
     if (!this.isMoving && this.currentDragEvent) {
       if (
@@ -115,15 +117,15 @@ export default Service.extend({
             (pos.px > 0.33 && moveDirections.indexOf('right') >= 0)
           ) {
             this.moveElements(emberObject);
-            this.set('currentOffsetItem', emberObject);
+            this.currentOffsetItem = emberObject;
           }
         }
       } else {
         //reset because the node moved under the mouse with a move
-        this.set('currentOffsetItem', null);
+        this.currentOffsetItem = null;
       }
     }
-  },
+  }
 
   moveObjectPositions(a, b, sortComponents) {
     const aSortable = sortComponents.find((component) => {
@@ -162,7 +164,7 @@ export default Service.extend({
       aList.removeObject(a);
       bList.insertAt(indexOf(bList, b), a);
     }
-  },
+  }
 
   moveElements(overElement) {
     const isEnabled = Object.keys(this.sortComponents).length;
@@ -178,7 +180,7 @@ export default Service.extend({
       overElement.args.content,
       sortComponents
     );
-  },
+  }
 
   relativeClientPosition(el, event) {
     const rect = el.getBoundingClientRect();
@@ -191,5 +193,5 @@ export default Service.extend({
       px: x / rect.width,
       py: y / rect.height,
     };
-  },
-});
+  }
+}

@@ -83,7 +83,12 @@ module('Integration | Component | sortable objects', function (hooks) {
     });
 
     await render(hbs`
-      <SortableObjects @sortableObjectList={{this.pojoData}} @onSortEnd={{fn this.onSortEnd}} class='sortContainer' @sortingScope='sortable-objects'>
+      <SortableObjects
+        @sortableObjectList={{this.pojoData}}
+        @onSortEnd={{this.onSortEnd}}
+        class='sortContainer'
+        @sortingScope='sortable-objects'
+      >
         {{#each this.pojoData as |item|}}
           <DraggableObject
             class="sortObject"
