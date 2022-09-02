@@ -41,13 +41,17 @@ module('Integration | Component | draggable object', function (hooks) {
 
     await triggerEvent(componentSelector, 'dragstart', event);
 
-    assert.true(find(componentSelector).classList.contains('is-dragging-object'));
+    assert.true(
+      find(componentSelector).classList.contains('is-dragging-object')
+    );
 
     await triggerEvent(componentSelector, 'drag', event);
 
     await triggerEvent(componentSelector, 'dragend', event);
 
-    assert.false(find(componentSelector).classList.contains('is-dragging-object'));
+    assert.false(
+      find(componentSelector).classList.contains('is-dragging-object')
+    );
   });
 
   test('Draggable Object is only draggable from handle', async function (assert) {
@@ -66,12 +70,16 @@ module('Integration | Component | draggable object', function (hooks) {
 
     //does not drag from main component
     await triggerEvent(componentSelector, 'dragstart', event);
-    assert.false(find(componentSelector).classList.contains('is-dragging-object'));
+    assert.false(
+      find(componentSelector).classList.contains('is-dragging-object')
+    );
 
     //end drag
     await triggerEvent(componentSelector, 'dragend', event);
 
-    assert.false(find(componentSelector).classList.contains('is-dragging-object'));
+    assert.false(
+      find(componentSelector).classList.contains('is-dragging-object')
+    );
 
     //make sure parent element does not have draggable attribute until handle is clicked
     assert.equal(find(componentSelector).getAttribute('draggable'), 'false');
@@ -83,7 +91,9 @@ module('Integration | Component | draggable object', function (hooks) {
     //Drag should start now that the handle is down
     await triggerEvent(componentSelector, 'dragstart', event);
 
-    assert.true(find(componentSelector).classList.contains('is-dragging-object'));
+    assert.true(
+      find(componentSelector).classList.contains('is-dragging-object')
+    );
 
     //Drag has ended draggable attribute should be removed
     await triggerEvent(componentSelector, 'dragend', event);

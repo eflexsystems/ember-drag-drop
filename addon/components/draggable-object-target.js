@@ -5,7 +5,8 @@ import { tracked } from '@glimmer/tracking';
 
 export default class DraggableObjectTarget extends Component {
   _currentDrag = null;
-  coordinator = this.args.coordinator ?? getOwner(this).lookup('drag:coordinator');
+  coordinator =
+    this.args.coordinator ?? getOwner(this).lookup('drag:coordinator');
 
   /**
    * Read-only className property that is set to true when the component is
