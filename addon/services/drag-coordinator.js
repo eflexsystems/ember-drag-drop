@@ -3,7 +3,6 @@ import { alias } from '@ember/object/computed';
 import { A } from '@ember/array';
 import { isEqual } from '@ember/utils';
 
-
 function indexOf(items, a) {
   return items.findIndex(function (element) {
     return isEqual(element, a);
