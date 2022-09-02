@@ -8,10 +8,10 @@ import { guidFor } from '@ember/object/internals';
 
 module(
   'Unit | Util | ember-drag-drop/utils/proxy-unproxy-objects',
-  function(hooks) {
+  function (hooks) {
     setupTest(hooks);
 
-    hooks.beforeEach(function() {
+    hooks.beforeEach(function () {
       this.testObject = {
         value: true,
         id: 123,

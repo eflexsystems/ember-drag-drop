@@ -7,20 +7,20 @@ import * as newDragDrop from 'ember-drag-drop/test-support/helpers/drag-drop';
 import * as newDataTransfer from 'ember-drag-drop/test-support/helpers/data-transfer';
 import * as newMockEvent from 'ember-drag-drop/test-support/helpers/mock-event';
 
-module('test-support exports', function() {
-  test('helpers/drag-drop', function(assert) {
+module('test-support exports', function () {
+  test('helpers/drag-drop', function (assert) {
     for (const [key, value] of Object.entries(oldDragDrop)) {
       assert.deepEqual(value, newDragDrop[key]);
     }
   });
 
-  test('helpers/data-transfer', function(assert) {
+  test('helpers/data-transfer', function (assert) {
     for (const [key, value] of Object.entries(oldDataTransfer)) {
       assert.deepEqual(value, newDataTransfer[key]);
     }
   });
 
-  test('helpers/mock-event', function(assert) {
+  test('helpers/mock-event', function (assert) {
     for (const [key, value] of Object.entries(oldMockEvent)) {
       assert.deepEqual(value, newMockEvent[key]);
     }

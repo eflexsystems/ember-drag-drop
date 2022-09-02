@@ -5,7 +5,7 @@ import Coordinator from '../../../models/coordinator';
 import { drag } from 'ember-drag-drop/test-support/helpers/drag-drop';
 import { find, render } from '@ember/test-helpers';
 
-module('Integration | Helpers', function(hooks) {
+module('Integration | Helpers', function (hooks) {
   setupRenderingTest(hooks);
 
   const collection = ['hiphop', 'jazz', 'funk'];
@@ -20,12 +20,12 @@ module('Integration | Helpers', function(hooks) {
     {{/each}}
   `;
 
-  test('drag helper drags to a draggable object target and calls the action upon drop', async function(assert) {
+  test('drag helper drags to a draggable object target and calls the action upon drop', async function (assert) {
     assert.expect(3);
 
     let coordinator = Coordinator.create();
 
-    coordinator.on('objectMoved', function(ops) {
+    coordinator.on('objectMoved', function (ops) {
       assert.equal(ops.obj, 'hiphop');
       assert.equal(ops.target.destination, 1);
     });
@@ -34,19 +34,19 @@ module('Integration | Helpers', function(hooks) {
     this.set('coordinator', coordinator);
     this.set('dropAction', () => {
       assert.ok(true, 'called drop action');
-    })
+    });
 
     await render(template);
 
     await drag('.draggable-object.hiphop', { drop: '.drop-target.jazz' });
   });
 
-  test('drag helper allows a callback to be called before dropping', async function(assert) {
+  test('drag helper allows a callback to be called before dropping', async function (assert) {
     assert.expect(3);
 
     let coordinator = Coordinator.create();
 
-    coordinator.on('objectMoved', function(ops) {
+    coordinator.on('objectMoved', function (ops) {
       assert.equal(ops.obj, 'jazz');
       assert.equal(ops.target.destination, 2);
     });
@@ -59,11 +59,8 @@ module('Integration | Helpers', function(hooks) {
     await drag('.draggable-object.jazz', {
       drop: '.drop-target.funk',
       beforeDrop() {
-        assert.ok(find('.is-dragging-object.draggable-object.jazz'))
-      }
+        assert.ok(find('.is-dragging-object.draggable-object.jazz'));
+      },
     });
-
   });
-
 });
-
