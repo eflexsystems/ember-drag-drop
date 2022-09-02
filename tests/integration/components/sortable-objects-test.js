@@ -70,7 +70,7 @@ module('Integration | Component | sortable objects', function (hooks) {
   test('sortable object renders draggable objects', async function (assert) {
     assert.expect(8);
 
-    this.set('pojoData', pojoData);
+    this.set('pojoData', A(pojoData.slice()));
 
     this.set('onSortEnd', () => {
       const pojoObj = this.pojoData;
@@ -139,7 +139,7 @@ module('Integration | Component | sortable objects', function (hooks) {
   test('sortable object renders draggable objects using shift algorithm', async function (assert) {
     assert.expect(4);
 
-    this.set('pojoData', pojoData);
+    this.set('pojoData', A(pojoData.slice()));
 
     this.set('onSortEnd', () => {
       const pojoObj = this.pojoData;
@@ -202,7 +202,7 @@ module('Integration | Component | sortable objects', function (hooks) {
   test('sorting does not happen if off', async function (assert) {
     assert.expect(8);
 
-    this.set('pojoData', pojoData);
+    this.set('pojoData', A(pojoData.slice()));
 
     // onSortEnd should not be called
     let onSortEndCalled = false;
