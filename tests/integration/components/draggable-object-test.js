@@ -48,7 +48,6 @@ module('Integration | Component | draggable object', function (hooks) {
     await triggerEvent(componentSelector, 'dragend', event);
 
     assert.false(find(componentSelector).classList.contains('is-dragging-object'));
-    );
   });
 
   test('Draggable Object is only draggable from handle', async function (assert) {
