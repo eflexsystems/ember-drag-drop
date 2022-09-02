@@ -15,8 +15,8 @@ export default class DataTransfer {
   }
 
   static makeMockEvent(payload) {
-    var transfer = new DataTransfer({ payload: payload });
-    var res = { dataTransfer: transfer };
+    const transfer = new DataTransfer({ payload: payload });
+    const res = { dataTransfer: transfer };
     res.preventDefault = function () {
       console.log('prevent default');
     };
@@ -27,7 +27,7 @@ export default class DataTransfer {
   }
 
   static createDomEvent(type) {
-    var event = document.createEvent('CustomEvent');
+    const event = document.createEvent('CustomEvent');
     event.initCustomEvent(type, true, true, null);
     event.dataTransfer = {
       data: {},
