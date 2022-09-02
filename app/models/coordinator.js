@@ -1,15 +1,14 @@
 import EmberObject from '@ember/object';
 import Evented from '@ember/object/evented';
-import { computed } from '@ember/object';
 import ObjHash from './obj-hash';
 import { unwrapper } from 'ember-drag-drop/utils/proxy-unproxy-objects';
+import classic from 'ember-classic-decorator';
 
-export default EmberObject.extend(Evented, {
-  objectMap: computed(function () {
-    return ObjHash.create();
-  }),
+@classic
+export default class Coordinator extends EmberObject.extend(Evented) {
+  objectMap = ObjHash.create();
 
-  getObject: function (id, ops) {
+  getObject(id, ops) {
     ops = ops || {};
     var payload = this.objectMap.getObj(id);
 
@@ -60,10 +59,10 @@ export default EmberObject.extend(Evented, {
     });
 
     return unwrapper(payload.obj);
-  },
+  }
 
-  setObject: function (obj, ops) {
+  setObject(obj, ops) {
     ops = ops || {};
     return this.objectMap.add({ obj: obj, ops: ops });
-  },
-});
+  }
+}
