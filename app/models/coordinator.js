@@ -6,7 +6,7 @@ import classic from 'ember-classic-decorator';
 
 @classic
 export default class Coordinator extends EmberObject.extend(Evented) {
-  objectMap = ObjHash.create();
+  objectMap = new ObjHash();
 
   getObject(id, ops) {
     ops = ops || {};
