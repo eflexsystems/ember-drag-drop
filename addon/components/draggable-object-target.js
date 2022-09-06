@@ -119,21 +119,6 @@ export default class DraggableObjectTarget extends Component {
   }
 
   @action
-  onClick(e) {
-    this.args.onClick?.(e);
-  }
-
-  @action
-  onMouseDown(e) {
-    this.args.onMouseDown?.(e);
-  }
-
-  @action
-  onMouseEnter(e) {
-    this.args.onMouseEnter?.(e);
-  }
-
-  @action
   onDragOver(event) {
     if (this._droppableIsDraggable(event)) {
       this.selfDrop = true;
