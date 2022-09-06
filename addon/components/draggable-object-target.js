@@ -73,7 +73,7 @@ export default class DraggableObjectTarget extends Component {
 
   _resetDroppability(event) {
     this.isOver = false;
-    this.args.dragOutAction?.(event);
+    this.args.onDragOut?.(event);
     this.acceptsDrag = false;
     this.selfDrop = false;
   }

@@ -133,7 +133,7 @@ The action is called with two arguments:
 Optionally you can also get an action fired when an object is being dragged over and out of the drop target. No parameter is currently sent with these actions.
 
 ```handlebars
-<DraggableObjectTarget @action={{fn this.increaseRating}} @amount={{"5"}} @dragOverAction={{fn this.myOverAction}} dragOutAction={{fn this.myDragOutAction}}> 
+<DraggableObjectTarget @action={{fn this.increaseRating}} @amount={{"5"}} @dragOverAction={{fn this.myOverAction}} @onDragOut={{this.myDragOutAction}}> 
   Drag here to increase rating
 </DraggableObjectTarget>
 ```
@@ -154,7 +154,7 @@ Ember.Controller.extend({
     myOverAction: function() {
       //will notify you when an object is being dragged over the drop target
     },
-    myDragOutAction: function() {
+    onDragOut: function() {
       //will notify you when an object has left the drop target area
     },
   }
