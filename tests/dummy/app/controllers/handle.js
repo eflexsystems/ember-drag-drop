@@ -19,6 +19,7 @@ export default class SimpleExample extends Controller {
     this.dragEndedText = false;
     this.dragStartedText = 'Drag Has Started';
   }
+
   @action
   dragEnd() {
     this.dragStartedText = false;
