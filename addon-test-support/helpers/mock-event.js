@@ -1,7 +1,5 @@
 class DataTransfer {
-  constructor() {
-    this.data = {};
-  }
+  data = {};
 
   setData(type, value) {
     this.data[type] = value;
@@ -16,8 +14,9 @@ class DataTransfer {
 }
 
 export default class MockEvent {
+  dataTransfer = new DataTransfer();
+
   constructor(options = {}) {
-    this.dataTransfer = new DataTransfer();
     this.dataTransfer.setData('Text', options.dataTransferData);
     Object.assign(this, options);
   }
