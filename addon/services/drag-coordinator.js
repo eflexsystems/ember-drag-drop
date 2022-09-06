@@ -26,8 +26,8 @@ export default class DragCoordinator extends Service {
   @tracked currentDragItem = null;
   @tracked currentOffsetItem = null;
   @tracked isMoving = false;
-  @tracked lastEvent = null;
   @tracked sortComponents = [];
+  #lastEvent;
 
   get enableSort() {
     return this.sortComponentController?.enableSort;
@@ -73,27 +73,25 @@ export default class DragCoordinator extends Service {
       this.currentDragItem.sortingScope === emberObject.sortingScope;
     let moveDirections = [];
 
-    if (!this.lastEvent) {
-      this.lastEvent = event;
-    }
+    this.#lastEvent ??= event;
 
-    if (event.clientY < this.lastEvent.clientY) {
+    if (event.clientY < this.#lastEvent.clientY) {
       moveDirections.push('up');
     }
 
-    if (event.clientY > this.lastEvent.clientY) {
+    if (event.clientY > this.#lastEvent.clientY) {
       moveDirections.push('down');
     }
 
-    if (event.clientX < this.lastEvent.clientX) {
+    if (event.clientX < this.#lastEvent.clientX) {
       moveDirections.push('left');
     }
 
-    if (event.clientX > this.lastEvent.clientX) {
+    if (event.clientX > this.#lastEvent.clientX) {
       moveDirections.push('right');
     }
 
-    this.lastEvent = event;
+    this.#lastEvent = event;
 
     if (!this.isMoving && this.currentDragEvent) {
       if (
