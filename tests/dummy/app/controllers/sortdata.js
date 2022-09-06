@@ -2,7 +2,7 @@ import Controller from '@ember/controller';
 import { action } from '@ember/object';
 
 export default class SortExample extends Controller {
-  sortFinishText = null;
+  @tracked model;
 
   @action
   dragStart(object) {

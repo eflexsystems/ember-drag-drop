@@ -49,9 +49,7 @@ export default class DragCoordinator extends Service {
 
   pushSortComponent(component) {
     const sortingScope = component.sortingScope;
-    if (!this.sortComponents[sortingScope]) {
-      this.sortComponents[sortingScope] = A();
-    }
+    this.sortComponents[sortingScope] ??= A();
     this.sortComponents[sortingScope].pushObject(component);
   }
 
