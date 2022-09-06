@@ -2,7 +2,7 @@ import Service from '@ember/service';
 import { A } from '@ember/array';
 import { isEqual } from '@ember/utils';
 import { tracked } from '@glimmer/tracking';
-import ObjHash from 'ember-drag-drop/utils/obj-hash';
+import { guidFor } from '@ember/object/internals';
 
 function indexOf(items, a) {
   return items.findIndex(function (element) {
@@ -27,7 +27,7 @@ function shiftInPlace(items, a, b) {
 }
 
 export default class DragCoordinator extends Service {
-  #objectMap = new ObjHash();
+  #objectMap = {};
 
   @tracked sortComponentController = null;
   @tracked currentDragObject = null;
@@ -197,7 +197,7 @@ export default class DragCoordinator extends Service {
   }
 
   getObject(id) {
-    const payload = this.#objectMap.getObj(id);
+    const payload = this.#objectMap[id];
 
     if (
       payload.ops.source &&
@@ -219,6 +219,9 @@ export default class DragCoordinator extends Service {
   }
 
   setObject(obj, ops = {}) {
-    return this.#objectMap.add({ obj: obj, ops: ops });
+    const item = { obj, ops };
+    const id = guidFor(item);
+    this.#objectMap[id] = item;
+    return id;
   }
 }
