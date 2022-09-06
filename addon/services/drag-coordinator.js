@@ -28,7 +28,7 @@ function shiftInPlace(items, a, b) {
 }
 
 export default class DragCoordinator extends Service {
-  objectMap = new ObjHash();
+  #objectMap = new ObjHash();
 
   @tracked sortComponentController = null;
   @tracked currentDragObject = null;
@@ -198,7 +198,7 @@ export default class DragCoordinator extends Service {
   }
 
   getObject(id) {
-    const payload = this.objectMap.getObj(id);
+    const payload = this.#objectMap.getObj(id);
 
     if (
       payload.ops.source &&
@@ -220,6 +220,6 @@ export default class DragCoordinator extends Service {
   }
 
   setObject(obj, ops = {}) {
-    return this.objectMap.add({ obj: obj, ops: ops });
+    return this.#objectMap.add({ obj: obj, ops: ops });
   }
 }

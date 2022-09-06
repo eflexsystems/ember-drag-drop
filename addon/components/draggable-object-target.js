@@ -100,7 +100,7 @@ export default class DraggableObjectTarget extends Component {
     }
 
     const obj = this.dragCoordinator.getObject(payload);
-    this.args.action(obj, { target: this, event: event });
+    this.args.action(obj, { target: this, event });
 
     //Firefox is navigating to a url on drop sometimes, this prevents that from happening
     event.preventDefault();
