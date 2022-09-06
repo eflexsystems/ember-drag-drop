@@ -198,15 +198,6 @@ export default class DragCoordinator extends Service {
 
   getObject(id) {
     const payload = this.#objectMap[id];
-
-    if (
-      payload.ops.source &&
-      !payload.ops.source.isDestroying &&
-      !payload.ops.source.isDestroyed
-    ) {
-      payload.ops.source.action?.(payload.obj);
-    }
-
     return payload.obj;
   }
 
