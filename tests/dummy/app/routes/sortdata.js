@@ -4,6 +4,7 @@ import { inject as service } from '@ember/service';
 export default class extends Route {
   @service store;
   createdStore = false;
+
   model() {
     if (!this.createdStore) {
       let page1 = this.store.createRecord('page', {
@@ -29,5 +30,9 @@ export default class extends Route {
         pages: [page1, page2, page3, page4],
       });
     }
+  }
+
+  setupController(controller, model) {
+    controller.model = model;
   }
 }

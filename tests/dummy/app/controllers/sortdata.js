@@ -11,6 +11,6 @@ export default class SortExample extends Controller {
 
   @action
   onSortEnd() {
-    console.log('Sort Ended', this.get('model.pages'));
+    console.log('Sort Ended', this.model.pages);
   }
 }
