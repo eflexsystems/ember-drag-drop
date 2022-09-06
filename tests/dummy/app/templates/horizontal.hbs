@@ -11,8 +11,8 @@
     In this template the sortable-objects passes in 'useSwap'
   </p>
   <p>
-    <Input @type="checkbox" @checked={{this.useSwap}} />
-    useSwap=
+    <Input id="use-swap" @type="checkbox" @checked={{this.useSwap}} />
+    <label for="use-swap">useSwap=</label>
     {{#if this.useSwap}}
       true
     {{else}}
