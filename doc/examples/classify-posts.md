@@ -26,7 +26,7 @@ export default Ember.ArrayController.extend({
   actions: {
     setStatus: function(post,ops) {
       const status = ops.target.status;
-      post.set("status",status);
+      post.status = status;
       post.save();
     }
   }

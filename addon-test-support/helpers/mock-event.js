@@ -19,18 +19,11 @@ export default class MockEvent {
   constructor(options = {}) {
     this.dataTransfer = new DataTransfer();
     this.dataTransfer.setData('Text', options.dataTransferData);
-    this.setProperties(options);
+    Object.assign(this, options);
   }
 
   useDataTransferData(otherEvent) {
     this.dataTransfer.setData('Text', otherEvent.dataTransfer.getData());
-    return this;
-  }
-
-  setProperties(props) {
-    for (let prop in props) {
-      this[prop] = props[prop];
-    }
     return this;
   }
 

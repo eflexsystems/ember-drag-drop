@@ -19,7 +19,7 @@ function drop($dragHandle, dropCssPath, dragEvent) {
     triggerEvent(
       dropTarget,
       'drop',
-      MockDataTransfer.makeMockEvent(dragEvent.dataTransfer.get('data.payload'))
+      MockDataTransfer.makeMockEvent(dragEvent.dataTransfer.data.payload)
     );
   });
 

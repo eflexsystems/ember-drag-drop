@@ -151,7 +151,7 @@ export default class DragCoordinator extends Service {
       }
 
       if (!this.inPlace) {
-        aSortable.set('sortableObjectList', list);
+        aSortable.sortableObjectList = list;
       }
     } else {
       // Move if items are in different sortable-objects component
