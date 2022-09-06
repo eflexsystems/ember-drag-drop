@@ -66,7 +66,7 @@ export default class SortableObjects extends Component {
   onDrop(event) {
     event.stopPropagation();
     event.preventDefault();
-    this.dragCoordinator.sortComponentController = undefined;
+    this.dragCoordinator.sortComponentController = null;
     if (this.enableSort) {
       this.args.onSortEnd?.(event);
     }
