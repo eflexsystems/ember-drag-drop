@@ -20,13 +20,14 @@ function shiftInPlace(items, a, b) {
 }
 
 export default class DragCoordinator extends Service {
-  @tracked sortComponentController = null;
-  @tracked currentDragEvent = null;
-  @tracked currentDragItem = null;
-  @tracked currentOffsetItem = null;
-  currentDragObject = null;
-  #sortComponents = {};
+  @tracked sortComponentController;
+  @tracked currentDragEvent;
+  @tracked currentDragItem;
+  @tracked currentOffsetItem;
+  currentDragObject;
+
   #lastEvent;
+  #sortComponents = {};
 
   get enableSort() {
     return this.sortComponentController?.enableSort;
