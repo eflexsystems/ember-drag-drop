@@ -29,7 +29,7 @@ export default class DraggableObjectTarget extends Component {
 
   @tracked selfDrop = false;
 
-  @tracked isOver = false;
+  #isOver = false;
 
   /**
    * Tells the browser we have an acceptable drag event.
@@ -39,9 +39,9 @@ export default class DraggableObjectTarget extends Component {
    */
 
   _allowDrop(event) {
-    if (!this.isOver) {
+    if (!this.#isOver) {
       //only send once per hover event
-      this.isOver = true;
+      this.#isOver = true;
       this.args.onDragOver?.(event);
     }
 
@@ -72,7 +72,7 @@ export default class DraggableObjectTarget extends Component {
    */
 
   _resetDroppability(event) {
-    this.isOver = false;
+    this.#isOver = false;
     this.args.onDragOut?.(event);
     this.acceptsDrag = false;
     this.selfDrop = false;
