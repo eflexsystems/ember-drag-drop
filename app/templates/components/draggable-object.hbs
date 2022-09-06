@@ -5,11 +5,9 @@
     {{if this.isDraggingObject 'is-dragging-object'}}
   "
   draggable={{this.isDraggable}}
-  title={{@content.title}}
   {{on 'drop' this.onDrop}}
   {{on 'dragstart' this.onDragStart}}
   {{on 'dragend' this.onDragEnd}}
-  {{on 'drag' this.onDrag}}
   {{on 'dragover' this.onDragOver}}
   ...attributes
 >

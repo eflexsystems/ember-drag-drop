@@ -13,8 +13,8 @@
     >
       {{#each this.sortableObjectList as |item|}}
         <DraggableObject
+          class="sortObject"
           @content={{item}}
-          @overrideClass="sortObject"
           @isSortable={{true}}
           @sortingScope="a"
         >
@@ -51,8 +51,8 @@
     >
       {{#each this.sortableObjectList2 as |item|}}
         <DraggableObject
+          class="sortObject"
           @content={{item}}
-          @overrideClass="sortObject"
           @isSortable={{true}}
           @sortingScope="a"
         >

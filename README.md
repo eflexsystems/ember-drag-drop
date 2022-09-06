@@ -77,14 +77,6 @@ Optionally you can set actions on the component to get notified on drag start an
 </DraggableObject>
 ```
 
-If you wish to have a drag handle in your component to be the trigger for a drag start action, instead of the whole wrapped template you can specify the jquery selector in the component.
-
-```handlebars
-<DraggableObject @content={{this}} @dragHandle='.js-dragHandle'>
-  <a class="js-dragHandle dragHandle">This is the only element that triggers a drag action</a>
-</DraggableObject>
-```
-
 There are two action hooks you can call as well.  By default on start drag the element being dragged has an opacity of 0.5 set.
 If you want to override that and apply your own stylings you can use the 'dragStartHook' and/or the 'dragEndHook'
 The jquery event is passed as the only parameter.
@@ -301,16 +293,3 @@ For a fuller example check out this integration [test](https://github.com/mharri
   // old drag helper
   import { drag } from 'your-app/tests/helpers/ember-drag-drop';
   ```
-
-
-## Component Class Overrides
-
-For both `draggable-object` and `draggable-object-target` you can override the default class names and provide your own, or a variable class name by adding an overrideClass property to the component.
-
-An Example:
-
-```handlebars
-<DraggableObjectTarget @overrideClass={{'my-new-class-name'}}>
-
-</DraggableObjectTarget>
-```

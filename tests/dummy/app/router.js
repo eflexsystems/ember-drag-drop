@@ -11,7 +11,6 @@ Router.map(function () {
   this.route('simple');
   this.route('sort');
   this.route('sortdata');
-  this.route('handle');
   this.route('horizontal');
   this.route('multiple');
 });

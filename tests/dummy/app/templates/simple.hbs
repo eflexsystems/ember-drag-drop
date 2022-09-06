@@ -5,7 +5,7 @@
   @resultText="Drag is Complete"
   @dragOverAction={{this.draggingOverTarget}}
   @dragOutAction={{this.leftDragTarget}}
-  @overrideClass="dropTarget">
+  class="dropTarget">
   {{#if this.dragFinishText}}
     {{this.dragFinishText}}
   {{else}}
@@ -17,7 +17,7 @@
   @content={{this.myObject}}
   @onDragStart={{this.dragStart}}
   @onDragEnd={{this.dragEnd}}
-  @overrideClass="dragObject">
+  class="dragObject">
 
   {{#if this.dragStartedText}}
     {{this.dragStartedText}}

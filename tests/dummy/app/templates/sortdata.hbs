@@ -8,7 +8,7 @@
     @enableSort={{true}}
   >
     {{#each this.model.pages as |item|}}
-      <DraggableObject @content={{item}} @overrideClass="sortObject" @isSortable={{true}}>
+      <DraggableObject @content={{item}} class="sortObject" @isSortable={{true}}>
         {{item.title}}
       </DraggableObject>
     {{/each}}
@@ -28,5 +28,4 @@
   <br>Controller is here: <a href="https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/controllers/sortdata.js" target="_blank" rel="noopener noreferrer">https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/controllers/sortdata.js</a>
   <br>Route is here: <a href="https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/routes/sortdata.js" target="_blank" rel="noopener noreferrer">https://github.com/mharris717/ember-drag-drop/blob/master/tests/dummy/app/routes/sortdata.js</a>
 </div>
-
 
