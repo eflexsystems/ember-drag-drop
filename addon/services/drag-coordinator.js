@@ -116,7 +116,18 @@ export default class DragCoordinator extends Service {
     }
   }
 
-  moveObjectPositions(a, b, sortComponents) {
+  moveElements(overElement) {
+    const isEnabled = Object.keys(this.#sortComponents).length;
+    const draggingItem = this.#currentDragItem;
+    const sortComponents = this.#sortComponents[draggingItem.sortingScope];
+
+    if (!isEnabled) {
+      return;
+    }
+
+    let a = draggingItem.args.content;
+    let b = overElement.args.content;
+
     const aSortable = sortComponents.find((component) => {
       return component.sortableObjectList.find((sortable) => {
         return isEqual(sortable, a);
@@ -153,22 +164,6 @@ export default class DragCoordinator extends Service {
       aList.removeObject(a);
       bList.insertAt(bList.indexOf(b), a);
     }
-  }
-
-  moveElements(overElement) {
-    const isEnabled = Object.keys(this.#sortComponents).length;
-    const draggingItem = this.#currentDragItem;
-    const sortComponents = this.#sortComponents[draggingItem.sortingScope];
-
-    if (!isEnabled) {
-      return;
-    }
-
-    this.moveObjectPositions(
-      draggingItem.args.content,
-      overElement.args.content,
-      sortComponents
-    );
   }
 
   relativeClientPosition(el, event) {
