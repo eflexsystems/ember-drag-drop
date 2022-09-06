@@ -3,23 +3,17 @@ import { A } from '@ember/array';
 import { isEqual } from '@ember/utils';
 import { tracked } from '@glimmer/tracking';
 
-function indexOf(items, a) {
-  return items.findIndex(function (element) {
-    return isEqual(element, a);
-  });
-}
-
 function swapInPlace(items, a, b) {
-  const aPos = indexOf(items, a);
-  const bPos = indexOf(items, b);
+  const aPos = items.indexOf(a);
+  const bPos = items.indexOf(b);
 
   items.replace(aPos, 1, [b]);
   items.replace(bPos, 1, [a]);
 }
 
 function shiftInPlace(items, a, b) {
-  const aPos = indexOf(items, a);
-  const bPos = indexOf(items, b);
+  const aPos = items.indexOf(a);
+  const bPos = items.indexOf(b);
 
   items.removeAt(aPos);
   items.insertAt(bPos, a);
@@ -160,7 +154,7 @@ export default class DragCoordinator extends Service {
 
       // Remove from aList and insert into bList
       aList.removeObject(a);
-      bList.insertAt(indexOf(bList, b), a);
+      bList.insertAt(bList.indexOf(b), a);
     }
   }
 
