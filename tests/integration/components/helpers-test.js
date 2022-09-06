@@ -21,19 +21,14 @@ module('Integration | Helpers', function (hooks) {
   `;
 
   test('drag helper drags to a draggable object target and calls the action upon drop', async function (assert) {
-    assert.expect(3);
+    assert.expect(1);
 
     let coordinator = Coordinator.create();
 
-    coordinator.on('objectMoved', function (ops) {
-      assert.equal(ops.obj, 'hiphop');
-      assert.equal(ops.target.args.destination, 1);
-    });
-
     this.set('collection', collection);
     this.set('coordinator', coordinator);
-    this.set('dropAction', () => {
-      assert.ok(true, 'called drop action');
+    this.set('dropAction', (obj) => {
+      assert.equal(obj, 'hiphop');
     });
 
     await render(template);
@@ -42,18 +37,15 @@ module('Integration | Helpers', function (hooks) {
   });
 
   test('drag helper allows a callback to be called before dropping', async function (assert) {
-    assert.expect(3);
+    assert.expect(2);
 
     let coordinator = Coordinator.create();
 
-    coordinator.on('objectMoved', function (ops) {
-      assert.equal(ops.obj, 'jazz');
-      assert.equal(ops.target.args.destination, 2);
-    });
-
     this.set('collection', collection);
     this.set('coordinator', coordinator);
-    this.set('dropAction', () => {});
+    this.set('dropAction', (obj) => {
+      assert.equal(obj, 'jazz');
+    });
     await render(template);
 
     await drag('.draggable-object.jazz', {

@@ -23,8 +23,7 @@ var FakeStore = EmberObject.extend({
     });
   },
 
-  find: function (name, ops) {
-    ops = ops || {};
+  find: function (name, ops = {}) {
     if (isNumber(ops)) {
       return this.findSingle(name, ops);
     } else {

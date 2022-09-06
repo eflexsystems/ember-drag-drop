@@ -1,15 +1,14 @@
-import EmberObject from '@ember/object';
-import Evented from '@ember/object/evented';
 import ObjHash from './obj-hash';
 import { unwrapper } from 'ember-drag-drop/utils/proxy-unproxy-objects';
-import classic from 'ember-classic-decorator';
 
-@classic
-export default class Coordinator extends EmberObject.extend(Evented) {
+export default class Coordinator {
   objectMap = new ObjHash();
 
-  getObject(id, ops) {
-    ops = ops || {};
+  static create(props) {
+    return new Coordinator(props);
+  }
+
+  getObject(id) {
     var payload = this.objectMap.getObj(id);
 
     if (
@@ -28,17 +27,10 @@ export default class Coordinator extends EmberObject.extend(Evented) {
       payload.ops.target.action?.(payload.obj);
     }
 
-    this.trigger('objectMoved', {
-      obj: unwrapper(payload.obj),
-      source: payload.ops.source,
-      target: ops.target,
-    });
-
     return unwrapper(payload.obj);
   }
 
-  setObject(obj, ops) {
-    ops = ops || {};
+  setObject(obj, ops = {}) {
     return this.objectMap.add({ obj: obj, ops: ops });
   }
 }
