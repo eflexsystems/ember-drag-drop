@@ -1,13 +1,11 @@
 import { tracked } from '@glimmer/tracking';
+import { guidFor } from '@ember/object/internals';
 
 export default class ObjHash {
-  @tracked content = [];
+  @tracked content = {};
 
   add(obj) {
-    let id = Math.random() * 1000000000000.0;
-    id = parseInt(id);
-    id = '' + id;
-
+    const id = guidFor(obj);
     this.content[id] = obj;
     return id;
   }
