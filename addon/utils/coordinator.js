@@ -1,4 +1,4 @@
-import ObjHash from './obj-hash';
+import ObjHash from 'ember-drag-drop/utils/obj-hash';
 import { unwrapper } from 'ember-drag-drop/utils/proxy-unproxy-objects';
 
 export default class Coordinator {
