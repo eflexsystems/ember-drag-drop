@@ -3,7 +3,6 @@ import { A } from '@ember/array';
 import { isEqual } from '@ember/utils';
 import { tracked } from '@glimmer/tracking';
 import ObjHash from 'ember-drag-drop/utils/obj-hash';
-import { unwrapper } from 'ember-drag-drop/utils/proxy-unproxy-objects';
 
 function indexOf(items, a) {
   return items.findIndex(function (element) {
@@ -216,7 +215,7 @@ export default class DragCoordinator extends Service {
       payload.ops.target.action?.(payload.obj);
     }
 
-    return unwrapper(payload.obj);
+    return payload.obj;
   }
 
   setObject(obj, ops = {}) {
