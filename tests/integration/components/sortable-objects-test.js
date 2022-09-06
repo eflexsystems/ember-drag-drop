@@ -21,19 +21,19 @@ module('Integration | Component | sortable objects', function (hooks) {
   };
 
   let appearsDragging = function (assert, selector, yes = true) {
-    const opacity = yes ? 0.5 : 1,
+    const opacity = yes ? '0.5' : '1',
       condition = yes ? '' : 'not',
       startMessage = `when item is ${condition} dragging`,
       element = find(selector);
 
-    assert.equal(
+    assert.strictEqual(
       element.classList.contains('is-dragging-object'),
       yes,
       `${startMessage} has class 'is-dragging-object' => ${yes}`
     );
 
-    assert.equal(
-      window.getComputedStyle(element)['opacity'],
+    assert.strictEqual(
+      window.getComputedStyle(element).opacity,
       opacity,
       `${startMessage} opacity => ${opacity}`
     );
@@ -44,7 +44,7 @@ module('Integration | Component | sortable objects', function (hooks) {
 
     await render(hbs`<SortableObjects />`);
 
-    assert.equal(this.element.textContent.trim(), '');
+    assert.strictEqual(this.element.textContent.trim(), '');
 
     await render(hbs`
         <SortableObjects>
@@ -52,7 +52,7 @@ module('Integration | Component | sortable objects', function (hooks) {
         </SortableObjects>
     `);
 
-    assert.equal(this.element.textContent.trim(), 'template block text');
+    assert.strictEqual(this.element.textContent.trim(), 'template block text');
 
     await render(hbs`
       <SortableObjects>
@@ -64,7 +64,7 @@ module('Integration | Component | sortable objects', function (hooks) {
         </DraggableObject>
        </SortableObjects>
     `);
-    assert.equal(findAll('.draggable-object').length, 2);
+    assert.strictEqual(findAll('.draggable-object').length, 2);
   });
 
   test('sortable object renders draggable objects', async function (assert) {
@@ -102,7 +102,11 @@ module('Integration | Component | sortable objects', function (hooks) {
         </SortableObjects>
     `);
 
-    assert.equal(findAll('.sortObject').length, 4, 'shows 4 sortable elements');
+    assert.strictEqual(
+      findAll('.sortObject').length,
+      4,
+      'shows 4 sortable elements'
+    );
 
     let startDragSelector = '.sortObject:nth-child(1)',
       dragOverSelector = '.sortObject:nth-child(2)';
@@ -165,7 +169,7 @@ module('Integration | Component | sortable objects', function (hooks) {
         </SortableObjects>
     `);
 
-    assert.equal(findAll('.sortObject').length, 4);
+    assert.strictEqual(findAll('.sortObject').length, 4);
 
     let startDragSelector = '.sortObject:nth-child(1)',
       dragOver2Selector = '.sortObject:nth-child(2)',
@@ -224,7 +228,7 @@ module('Integration | Component | sortable objects', function (hooks) {
       </SortableObjects>
     `);
 
-    assert.equal(findAll('.sortObject').length, 4);
+    assert.strictEqual(findAll('.sortObject').length, 4);
 
     let startDragSelector = '.sortObject:nth-child(1)',
       dragOver2Selector = '.sortObject:nth-child(2)';
@@ -280,7 +284,7 @@ module('Integration | Component | sortable objects', function (hooks) {
       </SortableObjects>
     `);
 
-    assert.equal(findAll('.sortObject').length, 4);
+    assert.strictEqual(findAll('.sortObject').length, 4);
 
     let startDragSelector = '.sortObject:nth-child(1)',
       dragOver2Selector = '.sortObject:nth-child(2)',
@@ -300,7 +304,7 @@ module('Integration | Component | sortable objects', function (hooks) {
       ],
     });
 
-    assert.equal(
+    assert.strictEqual(
       mutableData,
       this.pojoData,
       'array reference should not change'

@@ -12,7 +12,7 @@ module('Integration | Component | draggable object', function (hooks) {
 
     await render(hbs`<DraggableObject />`);
 
-    assert.equal(this.element.innerText.trim(), '');
+    assert.strictEqual(this.element.innerText.trim(), '');
 
     await render(hbs`
       <DraggableObject>
@@ -20,7 +20,7 @@ module('Integration | Component | draggable object', function (hooks) {
       </DraggableObject>
     `);
 
-    assert.equal(this.element.innerText.trim(), 'template block text');
+    assert.strictEqual(this.element.innerText.trim(), 'template block text');
   });
 
   test('Draggable Object is draggable', async function (assert) {

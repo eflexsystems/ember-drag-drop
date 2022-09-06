@@ -24,7 +24,7 @@ module('Integration | Helpers', function (hooks) {
 
     this.set('collection', collection);
     this.set('dropAction', (obj) => {
-      assert.equal(obj, 'hiphop');
+      assert.strictEqual(obj, 'hiphop');
     });
 
     await render(template);
@@ -37,7 +37,7 @@ module('Integration | Helpers', function (hooks) {
 
     this.set('collection', collection);
     this.set('dropAction', (obj) => {
-      assert.equal(obj, 'jazz');
+      assert.strictEqual(obj, 'jazz');
     });
     await render(template);
 
