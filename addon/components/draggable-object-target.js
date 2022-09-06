@@ -4,7 +4,7 @@ import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 
 export default class DraggableObjectTarget extends Component {
-  _currentDrag = null;
+  #currentDrag = null;
 
   @service dragCoordinator;
 
@@ -60,9 +60,9 @@ export default class DraggableObjectTarget extends Component {
 
   _droppableIsDraggable(event) {
     return (
-      this._currentDrag &&
-      (this._currentDrag === event.target ||
-        this._currentDrag.contains(event.target))
+      this.#currentDrag &&
+      (this.#currentDrag === event.target ||
+        this.#currentDrag.includes(event.target))
     );
   }
 
@@ -115,7 +115,7 @@ export default class DraggableObjectTarget extends Component {
   // It's on `Droppable` so we can test :\
   @action
   onDragStart(event) {
-    this._currentDrag = event.target;
+    this.#currentDrag = event.target;
   }
 
   @action
