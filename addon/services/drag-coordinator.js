@@ -21,11 +21,11 @@ function shiftInPlace(items, a, b) {
 
 export default class DragCoordinator extends Service {
   @tracked sortComponentController;
-  @tracked currentDragEvent;
-  @tracked currentDragItem;
   @tracked currentOffsetItem;
   currentDragObject;
 
+  #currentDragItem;
+  #currentDragEvent;
   #lastEvent;
   #sortComponents = {};
 
@@ -54,15 +54,15 @@ export default class DragCoordinator extends Service {
 
   dragStarted(object, event, emberObject) {
     this.currentDragObject = object;
-    this.currentDragEvent = event;
-    this.currentDragItem = emberObject;
+    this.#currentDragEvent = event;
+    this.#currentDragItem = emberObject;
     event.dataTransfer.effectAllowed = 'move';
   }
 
   dragEnded() {
     this.currentDragObject = null;
-    this.currentDragEvent = null;
-    this.currentDragItem = null;
+    this.#currentDragEvent = null;
+    this.#currentDragItem = null;
     this.currentOffsetItem = null;
   }
 
@@ -70,7 +70,7 @@ export default class DragCoordinator extends Service {
     const currentOffsetItem = this.currentOffsetItem;
     const pos = this.relativeClientPosition(element, event);
     const hasSameSortingScope =
-      this.currentDragItem.sortingScope === emberObject.sortingScope;
+      this.#currentDragItem.sortingScope === emberObject.sortingScope;
     let moveDirections = [];
 
     this.#lastEvent ??= event;
@@ -93,9 +93,9 @@ export default class DragCoordinator extends Service {
 
     this.#lastEvent = event;
 
-    if (this.currentDragEvent) {
+    if (this.#currentDragEvent) {
       if (
-        event.target !== this.currentDragEvent.target &&
+        event.target !== this.#currentDragEvent.target &&
         hasSameSortingScope
       ) {
         //if not dragging over self
@@ -158,7 +158,7 @@ export default class DragCoordinator extends Service {
 
   moveElements(overElement) {
     const isEnabled = Object.keys(this.#sortComponents).length;
-    const draggingItem = this.currentDragItem;
+    const draggingItem = this.#currentDragItem;
     const sortComponents = this.#sortComponents[draggingItem.sortingScope];
 
     if (!isEnabled) {
