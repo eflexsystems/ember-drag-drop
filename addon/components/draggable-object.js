@@ -7,26 +7,16 @@ import { tracked } from '@glimmer/tracking';
 
 export default class DraggableObject extends Component {
   @service dragCoordinator;
-
   @service coordinator;
 
-  @tracked dragReady = this.args.dragHandle ? false : true;
   @tracked isDraggingObject = false;
 
   get sortingScope() {
     return this.args.sortingScope ?? 'drag-objects';
   }
 
-  get title() {
-    return this.args.content.title;
-  }
-
   get isDraggable() {
     return this.args.isDraggable ?? true;
-  }
-
-  get draggable() {
-    return this.isDraggable ?? null;
   }
 
   get proxyContent() {
@@ -51,44 +41,8 @@ export default class DraggableObject extends Component {
   }
 
   @action
-  onDidInsert(element) {
-    //if there is a drag handle watch the mouse up and down events to trigger if drag is allowed
-    const dragHandle = this.args.dragHandle;
-    if (dragHandle) {
-      const dragHandleElem = element.querySelector(dragHandle);
-      //only start when drag handle is activated
-      if (dragHandleElem) {
-        dragHandleElem.addEventListener('mouseover', this.onMouseOver);
-        dragHandleElem.addEventListener('mouseout', this.onMouseOut);
-      }
-    }
-  }
-
-  @action
-  onWillDestroy(element) {
-    const dragHandle = this.args.dragHandle;
-    if (dragHandle) {
-      const dragHandleElem = element.querySelector(dragHandle);
-      if (dragHandleElem) {
-        dragHandleElem.removeEventListener('mouseover', this.mouseOverHandler);
-        dragHandleElem.removeEventListener('mouseout', this.mouseOutHandler);
-      }
-    }
-  }
-
-  @action
-  onMouseOver() {
-    this.dragReady = true;
-  }
-
-  @action
-  onMouseOut() {
-    this.dragReady = false;
-  }
-
-  @action
   onDragStart(event) {
-    if (!this.isDraggable || !this.dragReady) {
+    if (!this.isDraggable) {
       event.preventDefault();
       return;
     }
@@ -144,9 +98,6 @@ export default class DraggableObject extends Component {
     this.dragEndHook(event);
     this.dragCoordinator.dragEnded();
     this.args.onDragEnd?.(obj, event);
-    if (this.args.dragHandle) {
-      this.dragReady = false;
-    }
   }
 
   @action

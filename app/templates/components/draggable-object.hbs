@@ -4,16 +4,13 @@
     js-draggableObject
     {{if this.isDraggingObject 'is-dragging-object'}}
   "
-  draggable={{this.dragReady}}
+  draggable={{this.isDraggable}}
+  title={{@content.title}}
   {{on 'drop' this.onDrop}}
-  {{on 'mouseover' this.onMouseOver}}
-  {{on 'mouseout' this.onMouseOut}}
   {{on 'dragstart' this.onDragStart}}
   {{on 'dragend' this.onDragEnd}}
   {{on 'drag' this.onDrag}}
   {{on 'dragover' this.onDragOver}}
-  {{did-insert this.onDidInsert}}
-  {{will-destroy this.onWillDestroy}}
   ...attributes
 >
   {{yield}}

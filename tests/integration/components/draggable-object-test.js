@@ -63,10 +63,29 @@ module('Integration | Component | draggable object', function (hooks) {
 
     let event = new MockEvent();
 
+    this.set('isDraggable', false);
+
+    this.set('onMouseOver', () => {
+      this.set('isDraggable', true);
+    });
+
+    this.set('onDragEnd', () => {
+      this.set('isDraggable', false);
+    });
+
     await render(hbs`
-      <DraggableObject @content={{this.myObject}} class='draggable-object' @dragHandle='.js-dragHandle'>
+      <DraggableObject
+        @content={{this.myObject}}
+        class='draggable-object'
+        @isDraggable={{this.isDraggable}}
+        @dragEndHook={{this.onDragEnd}}
+      >
         Main Component
-        <span class="js-dragHandle dragHandle"></span>
+        <button
+          type="button"
+          class="js-dragHandle dragHandle"
+          {{on 'mouseover' this.onMouseOver}}
+        ></button>
       </DraggableObject>
     `);
 
@@ -78,7 +97,7 @@ module('Integration | Component | draggable object', function (hooks) {
       find(componentSelector).classList.contains('is-dragging-object')
     );
 
-    //end drag
+    // end drag
     await triggerEvent(componentSelector, 'dragend', event);
 
     assert.false(
