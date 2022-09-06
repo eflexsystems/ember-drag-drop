@@ -26,7 +26,7 @@ export default class DragCoordinator extends Service {
   @tracked currentDragItem = null;
   @tracked currentOffsetItem = null;
   @tracked isMoving = false;
-  @tracked sortComponents = [];
+  #sortComponents = {};
   #lastEvent;
 
   get enableSort() {
@@ -43,13 +43,13 @@ export default class DragCoordinator extends Service {
 
   pushSortComponent(component) {
     const sortingScope = component.sortingScope;
-    this.sortComponents[sortingScope] ??= A();
-    this.sortComponents[sortingScope].pushObject(component);
+    this.#sortComponents[sortingScope] ??= A();
+    this.#sortComponents[sortingScope].pushObject(component);
   }
 
   removeSortComponent(component) {
     const sortingScope = component.sortingScope;
-    this.sortComponents[sortingScope].removeObject(component);
+    this.#sortComponents[sortingScope].removeObject(component);
   }
 
   dragStarted(object, event, emberObject) {
@@ -157,9 +157,9 @@ export default class DragCoordinator extends Service {
   }
 
   moveElements(overElement) {
-    const isEnabled = Object.keys(this.sortComponents).length;
+    const isEnabled = Object.keys(this.#sortComponents).length;
     const draggingItem = this.currentDragItem;
-    const sortComponents = this.sortComponents[draggingItem.sortingScope];
+    const sortComponents = this.#sortComponents[draggingItem.sortingScope];
 
     if (!isEnabled) {
       return;
