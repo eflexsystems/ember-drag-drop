@@ -1,7 +1,6 @@
 import Service from '@ember/service';
 import { A } from '@ember/array';
 import { isEqual } from '@ember/utils';
-import { tracked } from '@glimmer/tracking';
 
 function swapInPlace(items, a, b) {
   const aPos = items.indexOf(a);
@@ -20,10 +19,10 @@ function shiftInPlace(items, a, b) {
 }
 
 export default class DragCoordinator extends Service {
-  @tracked sortComponentController;
-  @tracked currentOffsetItem;
+  sortComponentController;
   currentDragObject;
 
+  #currentOffsetItem;
   #currentDragItem;
   #currentDragEvent;
   #lastEvent;
@@ -63,11 +62,11 @@ export default class DragCoordinator extends Service {
     this.currentDragObject = null;
     this.#currentDragEvent = null;
     this.#currentDragItem = null;
-    this.currentOffsetItem = null;
+    this.#currentOffsetItem = null;
   }
 
   draggingOver(event, emberObject, element) {
-    const currentOffsetItem = this.currentOffsetItem;
+    const currentOffsetItem = this.#currentOffsetItem;
     const pos = this.relativeClientPosition(element, event);
     const hasSameSortingScope =
       this.#currentDragItem.sortingScope === emberObject.sortingScope;
@@ -107,12 +106,12 @@ export default class DragCoordinator extends Service {
             (pos.px > 0.33 && moveDirections.indexOf('right') >= 0)
           ) {
             this.moveElements(emberObject);
-            this.currentOffsetItem = emberObject;
+            this.#currentOffsetItem = emberObject;
           }
         }
       } else {
         //reset because the node moved under the mouse with a move
-        this.currentOffsetItem = null;
+        this.#currentOffsetItem = null;
       }
     }
   }
