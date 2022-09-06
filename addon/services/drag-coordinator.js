@@ -2,7 +2,6 @@ import Service from '@ember/service';
 import { A } from '@ember/array';
 import { isEqual } from '@ember/utils';
 import { tracked } from '@glimmer/tracking';
-import { guidFor } from '@ember/object/internals';
 
 function indexOf(items, a) {
   return items.findIndex(function (element) {
@@ -27,8 +26,6 @@ function shiftInPlace(items, a, b) {
 }
 
 export default class DragCoordinator extends Service {
-  #objectMap = {};
-
   @tracked sortComponentController = null;
   @tracked currentDragObject = null;
   @tracked currentDragEvent = null;
@@ -194,15 +191,5 @@ export default class DragCoordinator extends Service {
       px: x / rect.width,
       py: y / rect.height,
     };
-  }
-
-  getObject(id) {
-    return this.#objectMap[id];
-  }
-
-  setObject(obj) {
-    const id = guidFor(obj);
-    this.#objectMap[id] = obj;
-    return id;
   }
 }

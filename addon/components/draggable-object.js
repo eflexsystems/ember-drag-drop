@@ -3,6 +3,7 @@ import { next } from '@ember/runloop';
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import { guidFor } from '@ember/object/internals';
 
 export default class DraggableObject extends Component {
   @service dragCoordinator;
@@ -44,9 +45,8 @@ export default class DraggableObject extends Component {
     let dataTransfer = event.dataTransfer;
 
     const obj = this.args.content;
-    const id = this.dragCoordinator.setObject(obj);
 
-    dataTransfer.setData('Text', id);
+    dataTransfer.setData('Text', guidFor(obj));
 
     this.isDraggingObject = true;
     if (
