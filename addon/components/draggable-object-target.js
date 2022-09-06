@@ -6,7 +6,7 @@ import { inject as service } from '@ember/service';
 export default class DraggableObjectTarget extends Component {
   _currentDrag = null;
 
-  @service coordinator;
+  @service dragCoordinator;
 
   /**
    * Read-only className property that is set to true when the component is
@@ -99,7 +99,7 @@ export default class DraggableObjectTarget extends Component {
       return;
     }
 
-    let obj = this.coordinator.getObject(payload);
+    const obj = this.dragCoordinator.getObject(payload);
     this.args.action(obj, { target: this, event: event });
 
     //Firefox is navigating to a url on drop sometimes, this prevents that from happening

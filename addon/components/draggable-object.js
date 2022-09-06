@@ -7,7 +7,6 @@ import { tracked } from '@glimmer/tracking';
 
 export default class DraggableObject extends Component {
   @service dragCoordinator;
-  @service coordinator;
 
   @tracked isDraggingObject = false;
 
@@ -50,11 +49,7 @@ export default class DraggableObject extends Component {
     let dataTransfer = event.dataTransfer;
 
     let obj = this.proxyContent;
-    let id = null;
-    let coordinator = this.coordinator;
-    if (coordinator) {
-      id = coordinator.setObject(obj, { source: this });
-    }
+    const id = this.dragCoordinator.setObject(obj, { source: this });
 
     dataTransfer.setData('Text', id);
 
