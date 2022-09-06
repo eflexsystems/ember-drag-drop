@@ -84,7 +84,7 @@ export default class DraggableObjectTarget extends Component {
    *
    * ```js
    * acceptDrop: function(event) {
-   *   var data = event.dataTransfer.getData('text/plain');
+   *   const data = event.dataTransfer.getData('text/plain');
    *   doSomethingWith(data);
    * }
    * ```

@@ -64,7 +64,7 @@ Ember.Controller.extend({
 
   actions: {
     increaseRating: function(obj,ops) {
-      var amount = parseInt(ops.target.amount);
+      const amount = parseInt(ops.target.amount);
       obj.incrementProperty("rating",amount);
       obj.save();
     }
@@ -102,7 +102,7 @@ export default Ember.ArrayController.extend({
 
   actions: {
     setStatus: function(post,ops) {
-      var status = ops.target.status;
+      const status = ops.target.status;
       post.set("status",status);
       post.save();
     }

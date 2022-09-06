@@ -6,7 +6,7 @@ export default class Coordinator extends Service {
   objectMap = new ObjHash();
 
   getObject(id) {
-    var payload = this.objectMap.getObj(id);
+    const payload = this.objectMap.getObj(id);
 
     if (
       payload.ops.source &&
