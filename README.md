@@ -175,7 +175,7 @@ This only applies if you use the sort capabilities, regular dragging is not vers
 An Example:
 
 ```handlebars
-<SortableObjects @sortableObjectList={{this.sortableObjectList}} @onSortEnd={{fn this.onSortEnd}} @enableSort={{true}} @useSwap={{true}} @inPlace={{false}} @sortingScope={{"sortingGroup"}}>
+<SortableObjects @sortableObjectList={{this.sortableObjectList}} @onSortEnd={{fn this.onSortEnd}} @enableSort={{true}} @useSwap={{true}} @sortingScope={{"sortingGroup"}}>
   {{#each sortableObjectList as |item|}}
     <DraggableObject content=item isSortable=true sortingScope="sortingGroup">
       {{item.name}}
@@ -187,8 +187,6 @@ An Example:
 On drop of an item in the list, the sortableObjectList is re-ordered and onSortEnd is fired unless the optional parameter 'enableSort' is false. You can check out an example of this is action [here](https://mharris717.github.io/ember-drag-drop/)
 
 `useSwap` defaults to true and is optional. If you set it to false, then the sort algorithm will cascade the swap of items, pushing the values down the list. [See Demo](https://mharris717.github.io/ember-drag-drop/#/horizontal)
-
-`inPlace` defaults to false and is optional. If you set it to true, then the original list will be mutated instead of making a copy.
 
 `sortingScope` is optional and only needed if you have multiple lists on the screen that you want to share dragging between. [See Demo](https://mharris717.github.io/ember-drag-drop/#/multiple)
 

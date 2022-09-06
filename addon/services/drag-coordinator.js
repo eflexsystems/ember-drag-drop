@@ -36,10 +36,6 @@ export default class DragCoordinator extends Service {
     return this.sortComponentController?.useSwap;
   }
 
-  get inPlace() {
-    return this.sortComponentController?.inPlace;
-  }
-
   pushSortComponent(component) {
     const sortingScope = component.sortingScope;
     this.#sortComponents[sortingScope] ??= A();
@@ -138,9 +134,7 @@ export default class DragCoordinator extends Service {
 
     if (swap) {
       let list = aSortable.sortableObjectList;
-      if (!this.inPlace) {
-        list = A(list.toArray());
-      }
+      list = A(list.toArray());
 
       if (this.useSwap) {
         swapInPlace(list, a, b);
@@ -148,9 +142,7 @@ export default class DragCoordinator extends Service {
         shiftInPlace(list, a, b);
       }
 
-      if (!this.inPlace) {
-        aSortable.sortableObjectList = list;
-      }
+      aSortable.sortableObjectList = list;
     } else {
       // Move if items are in different sortable-objects component
       const aList = aSortable.sortableObjectList;

@@ -39,41 +39,12 @@ module('Integration | Component | sortable objects', function (hooks) {
     );
   };
 
-  test('sortable object renders', async function (assert) {
-    assert.expect(3);
-
-    await render(hbs`<SortableObjects />`);
-
-    assert.strictEqual(this.element.textContent.trim(), '');
-
-    await render(hbs`
-        <SortableObjects>
-        template block text
-        </SortableObjects>
-    `);
-
-    assert.strictEqual(this.element.textContent.trim(), 'template block text');
-
-    await render(hbs`
-      <SortableObjects>
-       <DraggableObject class='draggable-object'>
-        Object 1
-        </DraggableObject>
-       <DraggableObject class='draggable-object'>
-        Object 2
-        </DraggableObject>
-       </SortableObjects>
-    `);
-    assert.strictEqual(findAll('.draggable-object').length, 2);
-  });
-
   test('sortable object renders draggable objects', async function (assert) {
     assert.expect(8);
 
     this.set('pojoData', A(pojoData.slice()));
 
-    this.set('onSortEnd', () => {
-      const pojoObj = this.pojoData;
+    this.set('onSortEnd', (pojoObj) => {
       //make sure object items are in the right order
       assert.deepEqual(
         pojoObj.mapBy('id'),
@@ -88,18 +59,16 @@ module('Integration | Component | sortable objects', function (hooks) {
         @onSortEnd={{this.onSortEnd}}
         class='sortContainer'
         @sortingScope='sortable-objects'
-      >
-        {{#each this.pojoData as |item|}}
-          <DraggableObject
-            class="sortObject"
-            @content={{item}}
-            @isSortable={{true}}
-            @sortingScope='sortable-objects'
-          >
-            {{item.title}}
-          </DraggableObject>
-        {{/each}}
-        </SortableObjects>
+      as |item|>
+        <DraggableObject
+          class="sortObject"
+          @content={{item}}
+          @isSortable={{true}}
+          @sortingScope='sortable-objects'
+        >
+          {{item.title}}
+        </DraggableObject>
+      </SortableObjects>
     `);
 
     assert.strictEqual(
@@ -145,8 +114,7 @@ module('Integration | Component | sortable objects', function (hooks) {
 
     this.set('pojoData', A(pojoData.slice()));
 
-    this.set('onSortEnd', () => {
-      const pojoObj = this.pojoData;
+    this.set('onSortEnd', (pojoObj) => {
       //make sure object items are in the right order
       assert.deepEqual(
         pojoObj.mapBy('id'),
@@ -156,17 +124,20 @@ module('Integration | Component | sortable objects', function (hooks) {
     });
 
     await render(hbs`
-      <SortableObjects @sortableObjectList={{this.pojoData}} @onSortEnd={{this.onSortEnd}} class='sortContainer' @useSwap={{false}}>
-        {{#each this.pojoData as |item|}}
-          <DraggableObject
-            class="sortObject"
-            @content={{item}}
-            @isSortable={{true}}
-          >
-            {{item.title}}
-          </DraggableObject>
-        {{/each}}
-        </SortableObjects>
+      <SortableObjects
+        @sortableObjectList={{this.pojoData}}
+        @onSortEnd={{this.onSortEnd}}
+        class='sortContainer'
+        @useSwap={{false}}
+      as |item|>
+        <DraggableObject
+          class="sortObject"
+          @content={{item}}
+          @isSortable={{true}}
+        >
+          {{item.title}}
+        </DraggableObject>
+      </SortableObjects>
     `);
 
     assert.strictEqual(findAll('.sortObject').length, 4);
@@ -215,8 +186,12 @@ module('Integration | Component | sortable objects', function (hooks) {
     });
 
     await render(hbs`
-      <SortableObjects @sortableObjectList={{this.pojoData}} @onSortEnd={{this.onSortEnd}} class='sortContainer' @enableSort={{false}}>
-      {{#each this.pojoData as |item|}}
+      <SortableObjects
+        @sortableObjectList={{this.pojoData}}
+        @onSortEnd={{this.onSortEnd}}
+        class='sortContainer'
+        @enableSort={{false}}
+      as |item|>
         <DraggableObject
           class='sortObject'
           @content={{item}}
@@ -224,7 +199,6 @@ module('Integration | Component | sortable objects', function (hooks) {
         >
           {{item.title}}
         </DraggableObject>
-        {{/each}}
       </SortableObjects>
     `);
 
@@ -264,55 +238,5 @@ module('Integration | Component | sortable objects', function (hooks) {
     );
 
     assert.false(onSortEndCalled);
-  });
-
-  test('sort in place', async function (assert) {
-    const mutableData = A(pojoData.slice());
-    this.set('pojoData', mutableData);
-
-    await render(hbs`
-      <SortableObjects @sortableObjectList={{this.pojoData}} @useSwap={{false}} @inPlace={{true}}>
-        {{#each this.pojoData as |item|}}
-          <DraggableObject
-            class='sortObject'
-            @content={{item}}
-            @isSortable={{true}}
-          >
-            {{item.title}}
-          </DraggableObject>
-        {{/each}}
-      </SortableObjects>
-    `);
-
-    assert.strictEqual(findAll('.sortObject').length, 4);
-
-    let startDragSelector = '.sortObject:nth-child(1)',
-      dragOver2Selector = '.sortObject:nth-child(2)',
-      dragOver3Selector = '.sortObject:nth-child(3)';
-
-    const rect2 = find(dragOver2Selector).getBoundingClientRect();
-    const rect3 = find(dragOver3Selector).getBoundingClientRect();
-
-    await drag(startDragSelector, {
-      drop: dragOver3Selector,
-      dragOverMoves: [
-        [{ clientX: 1, clientY: rect2.top }, dragOver2Selector],
-        [
-          { clientX: 1, clientY: rect3.top + rect3.height / 2 },
-          dragOver3Selector,
-        ],
-      ],
-    });
-
-    assert.strictEqual(
-      mutableData,
-      this.pojoData,
-      'array reference should not change'
-    );
-    assert.deepEqual(
-      mutableData.mapBy('id'),
-      [2, 3, 1, 4],
-      'original array should be mutated'
-    );
   });
 });

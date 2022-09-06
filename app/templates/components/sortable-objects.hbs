@@ -6,5 +6,7 @@
   {{on 'drop' this.onDrop}}
   ...attributes
 >
-  {{yield}}
+  {{#each this.sortableObjectList as |item|}}
+    {{yield item}}
+  {{/each}}
 </div>

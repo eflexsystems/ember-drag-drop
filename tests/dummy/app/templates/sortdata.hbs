@@ -6,21 +6,11 @@
     @sortableObjectList={{this.book.pages}}
     @onSortEnd={{this.onSortEnd}}
     @enableSort={{true}}
-  >
-    {{#each this.book.pages as |item|}}
-      <DraggableObject @content={{item}} class="sortObject" @isSortable={{true}}>
-        {{item.title}}
-      </DraggableObject>
-    {{/each}}
+  as |item|>
+    <DraggableObject @content={{item}} class="sortObject" @isSortable={{true}}>
+      {{item.title}}
+    </DraggableObject>
   </SortableObjects>
-</div>
-<div class="u-pullLeft u-marginLeft">
-  <h3>Order of objects is:</h3>
-  <ul>
-    {{#each this.book.pages as |item|}}
-      <li>id:{{item.id}}, title:{{item.title}}</li>
-    {{/each}}
-  </ul>
 </div>
 <br><br>
 <div class="u-fullBlock">
