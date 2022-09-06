@@ -1,7 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import Coordinator from 'ember-drag-drop/utils/coordinator';
 import { drag } from 'ember-drag-drop/test-support/helpers/drag-drop';
 import { find, render } from '@ember/test-helpers';
 
@@ -12,21 +11,18 @@ module('Integration | Helpers', function (hooks) {
   const template = hbs`
     {{#each this.collection as |genre index|}}
 
-      <DraggableObject class={{genre}} @coordinator={{this.coordinator}} @content={{genre}}>
+      <DraggableObject class={{genre}} @content={{genre}}>
         <div class="item">{{this.genre}}</div>
       </DraggableObject>
 
-      <DraggableObjectTarget class="drop-target {{genre}}" @action={{fn this.dropAction}} @destination={{index}} @coordinator={{this.coordinator}} />
+      <DraggableObjectTarget class="drop-target {{genre}}" @action={{this.dropAction}} @destination={{index}} />
     {{/each}}
   `;
 
   test('drag helper drags to a draggable object target and calls the action upon drop', async function (assert) {
     assert.expect(1);
 
-    let coordinator = Coordinator.create();
-
     this.set('collection', collection);
-    this.set('coordinator', coordinator);
     this.set('dropAction', (obj) => {
       assert.equal(obj, 'hiphop');
     });
@@ -39,10 +35,7 @@ module('Integration | Helpers', function (hooks) {
   test('drag helper allows a callback to be called before dropping', async function (assert) {
     assert.expect(2);
 
-    let coordinator = Coordinator.create();
-
     this.set('collection', collection);
-    this.set('coordinator', coordinator);
     this.set('dropAction', (obj) => {
       assert.equal(obj, 'jazz');
     });

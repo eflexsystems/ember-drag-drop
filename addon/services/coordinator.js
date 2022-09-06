@@ -1,12 +1,9 @@
 import ObjHash from 'ember-drag-drop/utils/obj-hash';
 import { unwrapper } from 'ember-drag-drop/utils/proxy-unproxy-objects';
+import Service from '@ember/service';
 
-export default class Coordinator {
+export default class Coordinator extends Service {
   objectMap = new ObjHash();
-
-  static create(props) {
-    return new Coordinator(props);
-  }
 
   getObject(id) {
     var payload = this.objectMap.getObj(id);

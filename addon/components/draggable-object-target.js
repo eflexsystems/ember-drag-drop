@@ -1,12 +1,12 @@
-import { getOwner } from '@ember/application';
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
+import { inject as service } from '@ember/service';
 
 export default class DraggableObjectTarget extends Component {
   _currentDrag = null;
-  coordinator =
-    this.args.coordinator ?? getOwner(this).lookup('drag:coordinator');
+
+  @service coordinator;
 
   /**
    * Read-only className property that is set to true when the component is

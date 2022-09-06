@@ -1,4 +1,3 @@
-import { getOwner } from '@ember/application';
 import { inject as service } from '@ember/service';
 import { next } from '@ember/runloop';
 import { action, set } from '@ember/object';
@@ -9,8 +8,7 @@ import { tracked } from '@glimmer/tracking';
 export default class DraggableObject extends Component {
   @service dragCoordinator;
 
-  coordinator =
-    this.args.coordinator ?? getOwner(this).lookup('drag:coordinator');
+  @service coordinator;
 
   @tracked dragReady = this.args.dragHandle ? false : true;
   @tracked isDraggingObject = false;
