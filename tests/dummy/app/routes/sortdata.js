@@ -32,7 +32,7 @@ export default class extends Route {
     }
   }
 
-  setupController(controller, model) {
-    controller.model = model;
+  setupController(controller, book) {
+    controller.book = book;
   }
 }

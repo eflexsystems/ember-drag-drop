@@ -3,7 +3,7 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 
 export default class SortExample extends Controller {
-  @tracked model;
+  @tracked book;
 
   @action
   dragStart(object) {
@@ -12,6 +12,6 @@ export default class SortExample extends Controller {
 
   @action
   onSortEnd() {
-    console.log('Sort Ended', this.model.pages);
+    console.log('Sort Ended', this.book.pages);
   }
 }
