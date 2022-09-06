@@ -207,14 +207,6 @@ export default class DragCoordinator extends Service {
       payload.ops.source.action?.(payload.obj);
     }
 
-    if (
-      payload.ops.target &&
-      !payload.ops.target.isDestroying &&
-      !payload.ops.target.isDestroyed
-    ) {
-      payload.ops.target.action?.(payload.obj);
-    }
-
     return payload.obj;
   }
 
