@@ -1,6 +1,6 @@
 import { inject as service } from '@ember/service';
 import { next } from '@ember/runloop';
-import { action, set } from '@ember/object';
+import { action } from '@ember/object';
 import { wrapper } from 'ember-drag-drop/utils/proxy-unproxy-objects';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
@@ -53,9 +53,6 @@ export default class DraggableObject extends Component {
 
     dataTransfer.setData('Text', id);
 
-    if (obj && typeof obj === 'object') {
-      set(obj, 'isDraggingObject', true);
-    }
     this.isDraggingObject = true;
     if (
       !this.dragCoordinator.enableSort &&
@@ -86,9 +83,6 @@ export default class DraggableObject extends Component {
 
     let obj = this.proxyContent;
 
-    if (obj && typeof obj === 'object') {
-      set(obj, 'isDraggingObject', false);
-    }
     this.isDraggingObject = false;
     this.dragEndHook(event);
     this.dragCoordinator.dragEnded();
