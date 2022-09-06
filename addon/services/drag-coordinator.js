@@ -24,7 +24,6 @@ export default class DragCoordinator extends Service {
   @tracked currentDragEvent = null;
   @tracked currentDragItem = null;
   @tracked currentOffsetItem = null;
-  @tracked isMoving = false;
   currentDragObject = null;
   #sortComponents = {};
   #lastEvent;
@@ -93,7 +92,7 @@ export default class DragCoordinator extends Service {
 
     this.#lastEvent = event;
 
-    if (!this.isMoving && this.currentDragEvent) {
+    if (this.currentDragEvent) {
       if (
         event.target !== this.currentDragEvent.target &&
         hasSameSortingScope
