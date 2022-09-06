@@ -44,7 +44,7 @@ export default class DraggableObject extends Component {
     let dataTransfer = event.dataTransfer;
 
     const obj = this.args.content;
-    const id = this.dragCoordinator.setObject(obj, { source: this });
+    const id = this.dragCoordinator.setObject(obj);
 
     dataTransfer.setData('Text', id);
 

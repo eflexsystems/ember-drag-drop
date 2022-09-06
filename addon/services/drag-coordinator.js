@@ -197,14 +197,12 @@ export default class DragCoordinator extends Service {
   }
 
   getObject(id) {
-    const payload = this.#objectMap[id];
-    return payload.obj;
+    return this.#objectMap[id];
   }
 
-  setObject(obj, ops = {}) {
-    const item = { obj, ops };
-    const id = guidFor(item);
-    this.#objectMap[id] = item;
+  setObject(obj) {
+    const id = guidFor(obj);
+    this.#objectMap[id] = obj;
     return id;
   }
 }
