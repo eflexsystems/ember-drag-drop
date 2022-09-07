@@ -29,7 +29,7 @@ export default class DragCoordinator extends Service {
   #sortComponents = {};
 
   get enableSort() {
-    return this.sortComponentController?.enableSort;
+    return this.sortComponentController?.enableSort ?? false;
   }
 
   get useSwap() {
@@ -133,7 +133,12 @@ export default class DragCoordinator extends Service {
     const swap = aSortable === bSortable;
 
     if (swap) {
-      const list = A(aSortable.sortableObjectList?.toArray());
+      let list = aSortable.sortableObjectList;
+      if (list.toArray) {
+        list = list.toArray();
+      }
+
+      list = A(list);
 
       if (this.useSwap) {
         swapInPlace(list, a, b);

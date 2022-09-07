@@ -63,7 +63,6 @@ module('Integration | Component | sortable objects', function (hooks) {
         <DraggableObject
           class="sortObject"
           @content={{item}}
-          @isSortable={{true}}
           @sortingScope='sortable-objects'
         >
           {{item.title}}
@@ -133,7 +132,6 @@ module('Integration | Component | sortable objects', function (hooks) {
         <DraggableObject
           class="sortObject"
           @content={{item}}
-          @isSortable={{true}}
         >
           {{item.title}}
         </DraggableObject>
@@ -195,7 +193,6 @@ module('Integration | Component | sortable objects', function (hooks) {
         <DraggableObject
           class='sortObject'
           @content={{item}}
-          @isSortable={{false}}
         >
           {{item.title}}
         </DraggableObject>

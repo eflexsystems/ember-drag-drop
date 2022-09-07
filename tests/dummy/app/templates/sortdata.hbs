@@ -5,9 +5,8 @@
   <SortableObjects
     @sortableObjectList={{this.book.pages}}
     @onSortEnd={{this.onSortEnd}}
-    @enableSort={{true}}
   as |item|>
-    <DraggableObject @content={{item}} class="sortObject" @isSortable={{true}}>
+    <DraggableObject @content={{item}} class="sortObject">
       {{item.title}}
     </DraggableObject>
   </SortableObjects>

@@ -65,7 +65,7 @@ export default class DraggableObject extends Component {
 
     this.args.onDragStart?.(obj, event);
 
-    if (this.args.isSortable) {
+    if (this.dragCoordinator.enableSort) {
       this.args.onDraggingSortItem?.(obj, event);
     }
   }
@@ -86,7 +86,7 @@ export default class DraggableObject extends Component {
 
   @action
   onDragOver(event) {
-    if (this.args.isSortable) {
+    if (this.dragCoordinator.enableSort) {
       this.dragCoordinator.draggingOver(event, this, event.target);
     }
     return false;

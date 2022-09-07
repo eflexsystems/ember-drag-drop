@@ -3,7 +3,7 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { A } from '@ember/array';
 
-export default class SimpleExample extends Controller {
+export default class MultipleExample extends Controller {
   @tracked sortableObjectList = A([
     { id: 1, title: 'Number 1' },
     { id: 2, title: 'Number 2' },
@@ -20,6 +20,7 @@ export default class SimpleExample extends Controller {
 
   @action
   onSortEnd() {
+    console.log(this.sortableObjectList);
     console.log('Sort Ended', this.sortableObjectList);
   }
 
