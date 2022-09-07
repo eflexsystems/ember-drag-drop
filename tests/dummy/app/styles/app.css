@@ -39,22 +39,6 @@ html, body {
   clear: both;
 }
 
-.object-bin-title {
-  font-size: 140%;
-  font-weight: bold;
-}
-
-#bin .object-bin-title {
-  text-align: center;
-}
-
-#bin .draggable-object-bin {
-  border-width: 1px;
-  border-style: solid;
-  border-color: #B8C0D6;
-  padding: 15px;
-}
-
 .draggable-object {
   padding-bottom: 2px;
 }
