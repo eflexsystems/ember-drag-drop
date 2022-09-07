@@ -133,8 +133,7 @@ export default class DragCoordinator extends Service {
     const swap = aSortable === bSortable;
 
     if (swap) {
-      let list = aSortable.sortableObjectList;
-      list = A(list.toArray());
+      const list = A(aSortable.sortableObjectList?.toArray());
 
       if (this.useSwap) {
         swapInPlace(list, a, b);
