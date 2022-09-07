@@ -67,26 +67,6 @@ The two things to provide to the component are:
   {{name}}
 </DraggableObject>
 ```
-At the start of the drag a property of isDraggingObject will be set to true on the content object and false on drag end.
-
-Optionally you can set actions on the component to get notified on drag start and end. The content value of the current object being dragged is sent as the parameter.
-
-```handlebars
-<DraggableObject @content={{this}} @dragStartHook={{fn this.myStartAction}} @dragEndHook={{fn this.myEndAction}}>
-  {{name}}
-</DraggableObject>
-```
-
-There are two action hooks you can call as well.  By default on start drag the element being dragged has an opacity of 0.5 set.
-If you want to override that and apply your own stylings you can use the 'dragStartHook' and/or the 'dragEndHook'
-The jquery event is passed as the only parameter.
-
-```handlebars
-<DraggableObject @content={{this}} @dragStartHook=(action 'dragStartAction') @dragEndHook=(action 'dragEndAction')}}
-  <a class="js-dragHandle dragHandle">This is the only element that triggers a drag action</a>
-</DraggableObject>
-```
-
 
 ```javascript
 // represents the controller backing the above template

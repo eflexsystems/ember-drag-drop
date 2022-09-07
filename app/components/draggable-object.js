@@ -1,3 +1,3 @@
-import DraggableObject from 'ember-drag-drop/components/draggable-object';
+import DraggableObject from '@eflexsystems/ember-drag-drop/components/draggable-object';
 
 export default DraggableObject;

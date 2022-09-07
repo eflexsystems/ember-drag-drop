@@ -2,7 +2,7 @@ import { findAll, find, render } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import { drag } from 'ember-drag-drop/test-support/helpers/drag-drop';
+import { drag } from '@eflexsystems/ember-drag-drop/test-support/helpers/drag-drop';
 import { A } from '@ember/array';
 import { w } from '@ember/string';
 
@@ -21,26 +21,19 @@ module('Integration | Component | sortable objects', function (hooks) {
   };
 
   let appearsDragging = function (assert, selector, yes = true) {
-    const opacity = yes ? '0.5' : '1',
-      condition = yes ? '' : 'not',
-      startMessage = `when item is ${condition} dragging`,
-      element = find(selector);
+    const condition = yes ? '' : 'not';
+    const startMessage = `when item is ${condition} dragging`;
+    const element = find(selector);
 
     assert.strictEqual(
       element.classList.contains('is-dragging-object'),
       yes,
       `${startMessage} has class 'is-dragging-object' => ${yes}`
     );
-
-    assert.strictEqual(
-      window.getComputedStyle(element).opacity,
-      opacity,
-      `${startMessage} opacity => ${opacity}`
-    );
   };
 
   test('sortable object renders draggable objects', async function (assert) {
-    assert.expect(8);
+    assert.expect(6);
 
     this.set('pojoData', A(pojoData.slice()));
 
@@ -173,7 +166,7 @@ module('Integration | Component | sortable objects', function (hooks) {
   });
 
   test('sorting does not happen if off', async function (assert) {
-    assert.expect(8);
+    assert.expect(6);
 
     this.set('pojoData', A(pojoData.slice()));
 

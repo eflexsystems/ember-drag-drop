@@ -1,5 +1,4 @@
 import { inject as service } from '@ember/service';
-import { next } from '@ember/runloop';
 import { action } from '@ember/object';
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
@@ -16,23 +15,6 @@ export default class DraggableObject extends Component {
 
   get isDraggable() {
     return this.args.isDraggable ?? true;
-  }
-
-  dragStartHook(event) {
-    if (this.args.dragStartHook) {
-      this.args.dragStartHook?.(event);
-      return;
-    }
-    event.target.style.opacity = '0.5';
-  }
-
-  dragEndHook(event) {
-    if (this.args.dragEndHook) {
-      this.args.dragEndHook?.(event);
-      return;
-    }
-
-    event.target.style.opacity = '1';
   }
 
   @action
@@ -57,9 +39,6 @@ export default class DraggableObject extends Component {
       event.preventDefault();
       return;
     } else {
-      next(() => {
-        this.dragStartHook(event);
-      });
       this.dragCoordinator.dragStarted(obj, event, this);
     }
 
@@ -79,7 +58,6 @@ export default class DraggableObject extends Component {
     const obj = this.args.content;
 
     this.isDraggingObject = false;
-    this.dragEndHook(event);
     this.dragCoordinator.dragEnded();
     this.args.onDragEnd?.(obj, event);
   }

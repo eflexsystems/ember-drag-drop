@@ -2,7 +2,7 @@ import { triggerEvent, find, render } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import MockEvent from 'ember-drag-drop/test-support/helpers/mock-event';
+import MockEvent from '@eflexsystems/ember-drag-drop/test-support/helpers/mock-event';
 
 module('Integration | Component | draggable object', function (hooks) {
   setupRenderingTest(hooks);
@@ -56,26 +56,5 @@ module('Integration | Component | draggable object', function (hooks) {
     assert.false(
       find(componentSelector).classList.contains('is-dragging-object')
     );
-  });
-
-  test('Draggable hooks are overridable', async function (assert) {
-    assert.expect(2);
-
-    let event = new MockEvent();
-
-    this.set('onDragStart', (event) => assert.ok(event));
-
-    this.set('onDragEnd', (event) => assert.ok(event));
-
-    await render(hbs`
-      <DraggableObject class='draggable-object' @dragStartHook={{fn this.onDragStart}} @dragEndHook={{fn this.onDragEnd}}>
-      </DraggableObject>
-    `);
-
-    let componentSelector = '.draggable-object';
-
-    await triggerEvent(componentSelector, 'dragstart', event);
-
-    await triggerEvent(componentSelector, 'dragend', event);
   });
 });

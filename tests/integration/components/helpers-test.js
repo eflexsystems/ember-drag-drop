@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
 import hbs from 'htmlbars-inline-precompile';
-import { drag } from 'ember-drag-drop/test-support/helpers/drag-drop';
+import { drag } from '@eflexsystems/ember-drag-drop/test-support/helpers/drag-drop';
 import { find, render } from '@ember/test-helpers';
 
 module('Integration | Helpers', function (hooks) {
