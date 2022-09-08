@@ -31,6 +31,11 @@ export default class DraggableObjectTarget extends Component {
 
   #isOver = false;
 
+  willDestroy() {
+    super.willDestroy(...arguments);
+    this.dragCoordinator.dragEnded();
+  }
+
   /**
    * Tells the browser we have an acceptable drag event.
    *
@@ -146,6 +151,7 @@ export default class DraggableObjectTarget extends Component {
     this._resetDroppability();
     // TODO: might not need this? I can't remember why its here
     event.stopPropagation();
+    this.dragCoordinator.dragEnded();
     return false;
   }
 

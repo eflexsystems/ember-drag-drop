@@ -31,6 +31,8 @@ export default class DraggableObject extends Component {
     dataTransfer.setData('Text', guidFor(obj));
 
     this.isDraggingObject = true;
+    this.dragCoordinator.dragStarted(obj, event, this);
+
     if (
       !this.dragCoordinator.enableSort &&
       this.dragCoordinator.sortComponentController
@@ -38,8 +40,6 @@ export default class DraggableObject extends Component {
       //disable drag if sorting is disabled
       event.preventDefault();
       return;
-    } else {
-      this.dragCoordinator.dragStarted(obj, event, this);
     }
 
     this.args.onDragStart?.(obj, event);
@@ -58,7 +58,6 @@ export default class DraggableObject extends Component {
     const obj = this.args.content;
 
     this.isDraggingObject = false;
-    this.dragCoordinator.dragEnded();
     this.args.onDragEnd?.(obj, event);
   }
 
