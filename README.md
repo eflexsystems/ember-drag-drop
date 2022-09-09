@@ -67,34 +67,6 @@ The two things to provide to the component are:
   {{name}}
 </DraggableObject>
 ```
-At the start of the drag a property of isDraggingObject will be set to true on the content object and false on drag end.
-
-Optionally you can set actions on the component to get notified on drag start and end. The content value of the current object being dragged is sent as the parameter.
-
-```handlebars
-<DraggableObject @content={{this}} @dragStartHook={{fn this.myStartAction}} @dragEndHook={{fn this.myEndAction}}>
-  {{name}}
-</DraggableObject>
-```
-
-If you wish to have a drag handle in your component to be the trigger for a drag start action, instead of the whole wrapped template you can specify the jquery selector in the component.
-
-```handlebars
-<DraggableObject @content={{this}} @dragHandle='.js-dragHandle'>
-  <a class="js-dragHandle dragHandle">This is the only element that triggers a drag action</a>
-</DraggableObject>
-```
-
-There are two action hooks you can call as well.  By default on start drag the element being dragged has an opacity of 0.5 set.
-If you want to override that and apply your own stylings you can use the 'dragStartHook' and/or the 'dragEndHook'
-The jquery event is passed as the only parameter.
-
-```handlebars
-<DraggableObject @content={{this}} @dragStartHook=(action 'dragStartAction') @dragEndHook=(action 'dragEndAction')}}
-  <a class="js-dragHandle dragHandle">This is the only element that triggers a drag action</a>
-</DraggableObject>
-```
-
 
 ```javascript
 // represents the controller backing the above template
@@ -141,7 +113,7 @@ The action is called with two arguments:
 Optionally you can also get an action fired when an object is being dragged over and out of the drop target. No parameter is currently sent with these actions.
 
 ```handlebars
-<DraggableObjectTarget @action={{fn this.increaseRating}} @amount={{"5"}} @dragOverAction={{fn this.myOverAction}} dragOutAction={{fn this.myDragOutAction}}> 
+<DraggableObjectTarget @action={{fn this.increaseRating}} @amount={{"5"}} @dragOverAction={{fn this.myOverAction}} @onDragOut={{this.myDragOutAction}}> 
   Drag here to increase rating
 </DraggableObjectTarget>
 ```
@@ -155,14 +127,14 @@ Ember.Controller.extend({
 
   actions: {
     increaseRating: function(obj,ops) {
-      var amount = parseInt(ops.target.amount);
+      const amount = parseInt(ops.target.amount);
       obj.incrementProperty("rating",amount);
       obj.save();
     },
     myOverAction: function() {
       //will notify you when an object is being dragged over the drop target
     },
-    myDragOutAction: function() {
+    onDragOut: function() {
       //will notify you when an object has left the drop target area
     },
   }
@@ -183,24 +155,20 @@ This only applies if you use the sort capabilities, regular dragging is not vers
 An Example:
 
 ```handlebars
-<SortableObjects @sortableObjectList={{this.sortableObjectList}} @sortEndAction={{fn this.sortEndAction}} @enableSort={{true}} @useSwap={{true}} @inPlace={{false}} @sortingScope={{"sortingGroup"}}>
+<SortableObjects @sortableObjectList={{this.sortableObjectList}} @onSortEnd={{fn this.onSortEnd}} @useSwap={{true}} @sortingScope={{"sortingGroup"}}>
   {{#each sortableObjectList as |item|}}
-    <DraggableObject content=item isSortable=true sortingScope="sortingGroup">
+    <DraggableObject content=item sortingScope="sortingGroup">
       {{item.name}}
     </DraggableObject>
   {{/each}}
 </SortableObjects>
 ```
 
-On drop of an item in the list, the sortableObjectList is re-ordered and the sortEndAction is fired unless the optional parameter 'enableSort' is false. You can check out an example of this is action [here](https://mharris717.github.io/ember-drag-drop/)
+On drop of an item in the list, the sortableObjectList is re-ordered and onSortEnd is fired unless the optional parameter 'enableSort' is false. You can check out an example of this is action [here](https://mharris717.github.io/ember-drag-drop/)
 
 `useSwap` defaults to true and is optional. If you set it to false, then the sort algorithm will cascade the swap of items, pushing the values down the list. [See Demo](https://mharris717.github.io/ember-drag-drop/#/horizontal)
 
-`inPlace` defaults to false and is optional. If you set it to true, then the original list will be mutated instead of making a copy.
-
 `sortingScope` is optional and only needed if you have multiple lists on the screen that you want to share dragging between. [See Demo](https://mharris717.github.io/ember-drag-drop/#/multiple)
-
-**Note: It's important that you add the isSortable=true to each draggable-object or else that item will be draggable, but will not change the order of any item. Also if you set a custom sortingScope they should be the same for the sortable-object and the draggable-objects it contains.**
 
 ## Test Helpers
 
@@ -301,16 +269,3 @@ For a fuller example check out this integration [test](https://github.com/mharri
   // old drag helper
   import { drag } from 'your-app/tests/helpers/ember-drag-drop';
   ```
-
-
-## Component Class Overrides
-
-For both `draggable-object` and `draggable-object-target` you can override the default class names and provide your own, or a variable class name by adding an overrideClass property to the component.
-
-An Example:
-
-```handlebars
-<DraggableObjectTarget @overrideClass={{'my-new-class-name'}}>
-
-</DraggableObjectTarget>
-```

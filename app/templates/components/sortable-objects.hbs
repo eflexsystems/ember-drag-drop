@@ -1,1 +1,12 @@
-{{yield}}
+<div
+  class="sortable-objects"
+  {{on 'dragstart' this.onDragStart}}
+  {{on 'dragenter' this.onDragEnter}}
+  {{on 'dragover' this.onDragOver}}
+  {{on 'drop' this.onDrop}}
+  ...attributes
+>
+  {{#each this.sortableObjectList as |item|}}
+    {{yield item}}
+  {{/each}}
+</div>

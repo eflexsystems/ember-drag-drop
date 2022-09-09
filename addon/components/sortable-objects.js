@@ -1,56 +1,70 @@
-import Component from '@ember/component';
 import { inject as service } from '@ember/service';
-import { A } from '@ember/array';
+import Component from '@glimmer/component';
+import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 
-export default Component.extend( {
-  dragCoordinator: service('drag-coordinator'),
-  overrideClass: 'sortable-objects',
-  classNameBindings: ['overrideClass'],
-  enableSort: true,
-  useSwap: true,
-  inPlace: false,
-  sortingScope: 'drag-objects',
-  sortableObjectList: A(),
+export default class SortableObjects extends Component {
+  @service dragCoordinator;
 
-  init() {
-    this._super(...arguments);
-    if (this.get('enableSort')) {
-      this.get('dragCoordinator').pushSortComponent(this);
-    }
-  },
+  @tracked sortableObjectList = this.args.sortableObjectList ?? [];
 
-  willDestroyElement() {
-    if (this.get('enableSort')) {
-      this.get('dragCoordinator').removeSortComponent(this);
-    }
-  },
+  get sortingScope() {
+    return this.args.sortingScope ?? 'drag-objects';
+  }
 
-  dragStart(event) {
-    event.stopPropagation();
-    if (!this.get('enableSort')) {
-      return false;
-    }
-    this.set('dragCoordinator.sortComponentController', this);
-  },
+  get useSwap() {
+    return this.args.useSwap ?? true;
+  }
 
-  dragEnter(event) {
-    //needed so drop event will fire
-    event.stopPropagation();
-    return false;
-  },
+  get enableSort() {
+    return this.args.enableSort ?? true;
+  }
 
-  dragOver(event) {
-    //needed so drop event will fire
-    event.stopPropagation();
-    return false;
-  },
-
-  drop(event) {
-    event.stopPropagation();
-    event.preventDefault();
-    this.set('dragCoordinator.sortComponentController', undefined);
-    if (this.get('enableSort') && this.get('sortEndAction')) {
-      this.get('sortEndAction')(event);
+  constructor() {
+    super(...arguments);
+    if (this.enableSort) {
+      this.dragCoordinator.pushSortComponent(this);
     }
   }
-});
+
+  willDestroy() {
+    super.willDestroy(...arguments);
+    this.dragCoordinator.removeSortComponent(this);
+    if (this.dragCoordinator.sortComponentController === this) {
+      this.dragCoordinator.sortComponentController = null;
+    }
+  }
+
+  @action
+  onDragStart(event) {
+    event.stopPropagation();
+    if (!this.enableSort) {
+      return false;
+    }
+    this.dragCoordinator.sortComponentController = this;
+  }
+
+  @action
+  onDragEnter(event) {
+    //needed so drop event will fire
+    event.stopPropagation();
+    return false;
+  }
+
+  @action
+  onDragOver(event) {
+    //needed so drop event will fire
+    event.stopPropagation();
+    return false;
+  }
+
+  @action
+  onDrop(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    this.dragCoordinator.sortComponentController = null;
+    if (this.enableSort) {
+      this.args.onSortEnd?.(this.sortableObjectList, event);
+    }
+  }
+}

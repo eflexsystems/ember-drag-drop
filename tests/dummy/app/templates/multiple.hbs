@@ -11,35 +11,17 @@
   <div class="u-pullLeft">
     <SortableObjects
       @sortableObjectList={{this.sortableObjectList}}
-      @sortEndAction={{fn this.sortEndAction}}
+      @onSortEnd={{this.onSortEnd}}
       @sortingScope="a"
-    >
-      {{#each this.sortableObjectList as |item|}}
-        <DraggableObject
-          @content={{item}}
-          @overrideClass="sortObject"
-          @isSortable={{true}}
-          @sortingScope="a"
-        >
-          {{item.title}}
-        </DraggableObject>
-      {{/each}}
+    as |item|>
+      <DraggableObject
+        @content={{item}}
+        class="sortObject"
+        @sortingScope="a"
+      >
+        {{item.title}}
+      </DraggableObject>
     </SortableObjects>
-  </div>
-  <div class="u-pullLeft u-marginLeft">
-    <h3>
-      Order of objects is:
-    </h3>
-    <ul>
-      {{#each this.sortableObjectList as |item|}}
-        <li>
-          id:
-          {{item.id}}
-          , title:
-          {{item.title}}
-        </li>
-      {{/each}}
-    </ul>
   </div>
 </div>
 <div class="u-halfBlock">
@@ -49,35 +31,17 @@
   <div class="u-pullLeft">
     <SortableObjects
       @sortableObjectList={{this.sortableObjectList2}}
-      @sortEndAction={{fn this.sortEndAction2}}
+      @onSortEnd={{this.onSortEnd2}}
       @sortingScope="a"
-    >
-      {{#each this.sortableObjectList2 as |item|}}
-        <DraggableObject
-          @content={{item}}
-          @overrideClass="sortObject"
-          @isSortable={{true}}
-          @sortingScope="a"
-        >
-          {{item.title}}
-        </DraggableObject>
-      {{/each}}
+    as |item|>
+      <DraggableObject
+        @content={{item}}
+        class="sortObject"
+        @sortingScope="a"
+      >
+        {{item.title}}
+      </DraggableObject>
     </SortableObjects>
-  </div>
-  <div class="u-pullLeft u-marginLeft">
-    <h3>
-      Order of objects is:
-    </h3>
-    <ul>
-      {{#each this.sortableObjectList2 as |item|}}
-        <li>
-          id:
-          {{item.id}}
-          , title:
-          {{item.title}}
-        </li>
-      {{/each}}
-    </ul>
   </div>
 </div>
 <br />

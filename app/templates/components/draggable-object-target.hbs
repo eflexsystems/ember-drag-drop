@@ -1,7 +1,15 @@
-{{#if @enableClicking}}
-  <a href="#" {{fn this.acceptForDrop}}>
-    {{yield}}
-  </a>
-{{else}}
+<div
+  class="
+  draggable-object-target
+    {{if this.acceptsDrag 'accepts-drag'}}
+    {{if this.selfDrop 'self-drop'}}
+  "
+  {{on 'dragleave' this.onDragLeave}}
+  {{on 'dragstart' this.onDragStart}}
+  {{on 'dragenter' this.onDragEnter}}
+  {{on 'dragover' this.onDragOver}}
+  {{on 'drop' this.onDrop}}
+  ...attributes
+>
   {{yield}}
-{{/if}}
+</div>

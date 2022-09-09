@@ -11,8 +11,8 @@
     In this template the sortable-objects passes in 'useSwap'
   </p>
   <p>
-    <Input @type="checkbox" @checked={{this.useSwap}} />
-    useSwap=
+    <Input id="use-swap" @type="checkbox" @checked={{this.useSwap}} />
+    <label for="use-swap">useSwap=</label>
     {{#if this.useSwap}}
       true
     {{else}}
@@ -29,34 +29,16 @@
   <div class="u-pullLeft">
     <SortableObjects
       @sortableObjectList={{this.sortableObjectList}}
-      @sortEndAction={{fn this.sortEndAction}}
+      @onSortEnd={{this.onSortEnd}}
       @useSwap={{this.useSwap}}
-    >
-      {{#each this.sortableObjectList as |item|}}
-        <DraggableObject
-          @content={{item}}
-          @overrideClass="sortObject u-pullLeft"
-          @isSortable={{true}}
-        >
-          {{item.title}}
-        </DraggableObject>
-      {{/each}}
+    as |item|>
+      <DraggableObject
+        @content={{item}}
+        class="sortObject u-pullLeft"
+      >
+        {{item.title}}
+      </DraggableObject>
     </SortableObjects>
-  </div>
-  <div class="u-fullBlock">
-    <h3>
-      Order of objects is:
-    </h3>
-    <ul>
-      {{#each this.sortableObjectList as |item|}}
-        <li>
-          id:
-          {{item.id}}
-          , title:
-          {{item.title}}
-        </li>
-      {{/each}}
-    </ul>
   </div>
 </div>
 <br />

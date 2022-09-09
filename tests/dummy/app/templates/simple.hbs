@@ -1,11 +1,11 @@
 <h3>A simple example of one drag and one drop</h3>
 
-<DraggableObjectTarget 
-  @action={{fn this.dragResult}} 
-  @resultText="Drag is Complete" 
-  @dragOverAction={{fn this.draggingOverTarget}} 
-  @dragOutAction={{fn this.leftDragTarget}} 
-  @overrideClass="dropTarget">
+<DraggableObjectTarget
+  @action={{this.dragResult}}
+  @resultText="Drag is Complete"
+  @dragOverAction={{this.draggingOverTarget}}
+  @onDragOut={{this.leftDragTarget}}
+  class="dropTarget">
   {{#if this.dragFinishText}}
     {{this.dragFinishText}}
   {{else}}
@@ -13,11 +13,11 @@
   {{/if}}
 </DraggableObjectTarget>
 
-<DraggableObject 
-  @content={{this.myObject}} 
-  @dragStartAction={{fn this.dragStart}} 
-  @dragEndAction={{fn this.dragEnd}}
-   @overrideClass="dragObject">
+<DraggableObject
+  @content={{this.myObject}}
+  @onDragStart={{this.dragStart}}
+  @onDragEnd={{this.dragEnd}}
+  class="dragObject">
 
   {{#if this.dragStartedText}}
     {{this.dragStartedText}}

@@ -1,7 +1,6 @@
-import DS from 'ember-data';
+import Model, { attr, belongsTo } from '@ember-data/model';
 
-var Page = DS.Model.extend({
-  title: DS.attr('string')
-});
-
-export default Page;
+export default class Page extends Model {
+  @attr('string') title;
+  @belongsTo('book', { inverse: 'pages', async: false }) book;
+}
