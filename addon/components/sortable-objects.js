@@ -29,8 +29,9 @@ export default class SortableObjects extends Component {
 
   willDestroy() {
     super.willDestroy(...arguments);
-    if (this.enableSort) {
-      this.dragCoordinator.removeSortComponent(this);
+    this.dragCoordinator.removeSortComponent(this);
+    if (this.dragCoordinator.sortComponentController === this) {
+      this.dragCoordinator.sortComponentController = null;
     }
   }
 

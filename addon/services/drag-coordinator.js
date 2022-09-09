@@ -44,7 +44,7 @@ export default class DragCoordinator extends Service {
 
   removeSortComponent(component) {
     const sortingScope = component.sortingScope;
-    this.#sortComponents[sortingScope].removeObject(component);
+    this.#sortComponents[sortingScope]?.removeObject(component);
   }
 
   dragStarted(object, event, emberObject) {
