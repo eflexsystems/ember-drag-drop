@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import hbs from 'htmlbars-inline-precompile';
+import { hbs } from 'ember-cli-htmlbars';
 import { drag } from '@eflexsystems/ember-drag-drop/test-support/helpers/drag-drop';
 import { find, render } from '@ember/test-helpers';
 

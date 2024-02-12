@@ -1,22 +1,47 @@
 import Service from '@ember/service';
-import { A } from '@ember/array';
 import { isEqual } from '@ember/utils';
 
-function swapInPlace(items, a, b) {
+const removeObject = (array, obj) => {
+  if (!array) {
+    return;
+  }
+
+  const index = array.indexOf(obj);
+
+  if (index === -1) {
+    return;
+  }
+
+  array.splice(index, 1);
+};
+
+const swapInPlace = (items, a, b) => {
   const aPos = items.indexOf(a);
   const bPos = items.indexOf(b);
 
-  items.replace(aPos, 1, [b]);
-  items.replace(bPos, 1, [a]);
-}
+  items.splice(aPos, 1, b);
+  items.splice(bPos, 1, a);
+};
 
-function shiftInPlace(items, a, b) {
-  const aPos = items.indexOf(a);
+const shiftInPlace = (items, a, b) => {
   const bPos = items.indexOf(b);
 
-  items.removeAt(aPos);
-  items.insertAt(bPos, a);
-}
+  removeObject(items, a);
+  items.splice(bPos, 0, a);
+};
+
+const relativeClientPosition = (el, event) => {
+  const rect = el.getBoundingClientRect();
+  const x = event.clientX - rect.left;
+  const y = event.clientY - rect.top;
+
+  return {
+    x: x,
+    y: y,
+    px: x / rect.width,
+    py: y / rect.height,
+  };
+};
 
 export default class DragCoordinator extends Service {
   sortComponent;
@@ -38,13 +63,13 @@ export default class DragCoordinator extends Service {
 
   pushSortComponent(component) {
     const sortingScope = component.sortingScope;
-    this.#sortComponents[sortingScope] ??= A();
-    this.#sortComponents[sortingScope].pushObject(component);
+    this.#sortComponents[sortingScope] ??= [];
+    this.#sortComponents[sortingScope].push(component);
   }
 
   removeSortComponent(component) {
     const sortingScope = component.sortingScope;
-    this.#sortComponents[sortingScope]?.removeObject(component);
+    removeObject(this.#sortComponents[sortingScope], component);
   }
 
   dragStarted(object, event, emberObject) {
@@ -63,7 +88,7 @@ export default class DragCoordinator extends Service {
 
   draggingOver(event, emberObject, element) {
     const currentOffsetItem = this.#currentOffsetItem;
-    const pos = this.relativeClientPosition(element, event);
+    const pos = relativeClientPosition(element, event);
     const hasSameSortingScope =
       this.#currentDragItem.sortingScope === emberObject.sortingScope;
     let moveDirections = [];
@@ -133,12 +158,7 @@ export default class DragCoordinator extends Service {
     const swap = aSortable === bSortable;
 
     if (swap) {
-      let list = aSortable.sortableObjectList;
-      if (list.toArray) {
-        list = list.toArray();
-      }
-
-      list = A(list);
+      const list = [...aSortable.sortableObjectList];
 
       if (this.useSwap) {
         swapInPlace(list, a, b);
@@ -153,21 +173,8 @@ export default class DragCoordinator extends Service {
       const bList = bSortable.sortableObjectList;
 
       // Remove from aList and insert into bList
-      aList.removeObject(a);
-      bList.insertAt(bList.indexOf(b), a);
+      removeObject(aList, a);
+      bList.splice(bList.indexOf(b), 0, a);
     }
-  }
-
-  relativeClientPosition(el, event) {
-    const rect = el.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
-
-    return {
-      x: x,
-      y: y,
-      px: x / rect.width,
-      py: y / rect.height,
-    };
   }
 }

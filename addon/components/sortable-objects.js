@@ -2,11 +2,13 @@ import { inject as service } from '@ember/service';
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
+import { TrackedArray } from 'tracked-built-ins';
 
 export default class SortableObjects extends Component {
   @service dragCoordinator;
 
-  @tracked sortableObjectList = this.args.sortableObjectList ?? [];
+  @tracked sortableObjectList =
+    this.args.sortableObjectList ?? new TrackedArray();
 
   get sortingScope() {
     return this.args.sortingScope ?? 'drag-objects';

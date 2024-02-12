@@ -1,12 +1,12 @@
 import { findAll, find, render } from '@ember/test-helpers';
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import hbs from 'htmlbars-inline-precompile';
+import { hbs } from 'ember-cli-htmlbars';
 import { drag } from '@eflexsystems/ember-drag-drop/test-support/helpers/drag-drop';
-import { A } from '@ember/array';
+import { TrackedArray } from 'tracked-built-ins';
 import { w } from '@ember/string';
 
-let pojoData = A([
+let pojoData = new TrackedArray([
   { id: 1, title: 'Number 1' },
   { id: 2, title: 'Number 2' },
   { id: 3, title: 'Number 3' },
@@ -33,12 +33,12 @@ module('Integration | Component | sortable objects', function (hooks) {
   };
 
   test('sortable object renders draggable objects', async function (assert) {
-    this.set('pojoData', A(pojoData.slice()));
+    this.set('pojoData', new TrackedArray(pojoData.slice()));
 
     this.set('onSortEnd', (pojoObj) => {
       //make sure object items are in the right order
       assert.deepEqual(
-        pojoObj.mapBy('id'),
+        pojoObj.map((obj) => obj.id),
         [2, 1, 3, 4],
         'after sorting Pojo item list changed',
       );
@@ -100,12 +100,12 @@ module('Integration | Component | sortable objects', function (hooks) {
   });
 
   test('sortable object renders draggable objects using shift algorithm', async function (assert) {
-    this.set('pojoData', A(pojoData.slice()));
+    this.set('pojoData', new TrackedArray(pojoData.slice()));
 
     this.set('onSortEnd', (pojoObj) => {
       //make sure object items are in the right order
       assert.deepEqual(
-        pojoObj.mapBy('id'),
+        pojoObj.map((obj) => obj.id),
         [2, 3, 1, 4],
         'after sorting Pojo item list changed',
       );
@@ -162,7 +162,7 @@ module('Integration | Component | sortable objects', function (hooks) {
   });
 
   test('sorting does not happen if off', async function (assert) {
-    this.set('pojoData', A(pojoData.slice()));
+    this.set('pojoData', new TrackedArray(pojoData.slice()));
 
     // onSortEnd should not be called
     let onSortEndCalled = false;
