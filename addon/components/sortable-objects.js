@@ -39,6 +39,7 @@ export default class SortableObjects extends Component {
   onDragStart(event) {
     event.stopPropagation();
     if (!this.enableSort) {
+      event.preventDefault();
       return false;
     }
     this.dragCoordinator.sortComponentController = this;
@@ -48,6 +49,7 @@ export default class SortableObjects extends Component {
   onDragEnter(event) {
     //needed so drop event will fire
     event.stopPropagation();
+    event.preventDefault();
     return false;
   }
 
@@ -55,6 +57,7 @@ export default class SortableObjects extends Component {
   onDragOver(event) {
     //needed so drop event will fire
     event.stopPropagation();
+    event.preventDefault();
     return false;
   }
 
