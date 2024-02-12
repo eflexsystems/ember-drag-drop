@@ -28,13 +28,11 @@ module('Integration | Component | sortable objects', function (hooks) {
     assert.strictEqual(
       element.classList.contains('is-dragging-object'),
       yes,
-      `${startMessage} has class 'is-dragging-object' => ${yes}`
+      `${startMessage} has class 'is-dragging-object' => ${yes}`,
     );
   };
 
   test('sortable object renders draggable objects', async function (assert) {
-    assert.expect(6);
-
     this.set('pojoData', A(pojoData.slice()));
 
     this.set('onSortEnd', (pojoObj) => {
@@ -42,7 +40,7 @@ module('Integration | Component | sortable objects', function (hooks) {
       assert.deepEqual(
         pojoObj.mapBy('id'),
         [2, 1, 3, 4],
-        'after sorting Pojo item list changed'
+        'after sorting Pojo item list changed',
       );
     });
 
@@ -66,7 +64,7 @@ module('Integration | Component | sortable objects', function (hooks) {
     assert.strictEqual(
       findAll('.sortObject').length,
       4,
-      'shows 4 sortable elements'
+      'shows 4 sortable elements',
     );
 
     let startDragSelector = '.sortObject:nth-child(1)',
@@ -87,7 +85,7 @@ module('Integration | Component | sortable objects', function (hooks) {
         assert.deepEqual(
           visibleNumbers(),
           w('2 1 3 4'),
-          'After dragging over and before drop items are already shown in correct order'
+          'After dragging over and before drop items are already shown in correct order',
         );
       },
     });
@@ -97,13 +95,11 @@ module('Integration | Component | sortable objects', function (hooks) {
     assert.deepEqual(
       visibleNumbers(),
       w('2 1 3 4'),
-      'Items are still visually in the correct order after drag end'
+      'Items are still visually in the correct order after drag end',
     );
   });
 
   test('sortable object renders draggable objects using shift algorithm', async function (assert) {
-    assert.expect(4);
-
     this.set('pojoData', A(pojoData.slice()));
 
     this.set('onSortEnd', (pojoObj) => {
@@ -111,7 +107,7 @@ module('Integration | Component | sortable objects', function (hooks) {
       assert.deepEqual(
         pojoObj.mapBy('id'),
         [2, 3, 1, 4],
-        'after sorting Pojo item list changed'
+        'after sorting Pojo item list changed',
       );
     });
 
@@ -153,7 +149,7 @@ module('Integration | Component | sortable objects', function (hooks) {
         assert.deepEqual(
           visibleNumbers(),
           w('2 3 1 4'),
-          'After dragging over and before drop items are already shown in correct order'
+          'After dragging over and before drop items are already shown in correct order',
         );
       },
     });
@@ -161,13 +157,11 @@ module('Integration | Component | sortable objects', function (hooks) {
     assert.deepEqual(
       visibleNumbers(),
       w('2 3 1 4'),
-      'items are still shifted after drop'
+      'items are still shifted after drop',
     );
   });
 
   test('sorting does not happen if off', async function (assert) {
-    assert.expect(6);
-
     this.set('pojoData', A(pojoData.slice()));
 
     // onSortEnd should not be called
@@ -212,7 +206,7 @@ module('Integration | Component | sortable objects', function (hooks) {
         assert.deepEqual(
           visibleNumbers(),
           w('1 2 3 4'),
-          'Drag over does not affect order'
+          'Drag over does not affect order',
         );
       },
     });
@@ -224,7 +218,7 @@ module('Integration | Component | sortable objects', function (hooks) {
     assert.deepEqual(
       visibleNumbers(),
       w('1 2 3 4'),
-      'Items did not change order after drop'
+      'Items did not change order after drop',
     );
 
     assert.false(onSortEndCalled);

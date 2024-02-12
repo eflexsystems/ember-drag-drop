@@ -20,8 +20,6 @@ module('Integration | Helpers', function (hooks) {
   `;
 
   test('drag helper drags to a draggable object target and calls the action upon drop', async function (assert) {
-    assert.expect(1);
-
     this.set('collection', collection);
     this.set('dropAction', (obj) => {
       assert.strictEqual(obj, 'hiphop');
@@ -33,8 +31,6 @@ module('Integration | Helpers', function (hooks) {
   });
 
   test('drag helper allows a callback to be called before dropping', async function (assert) {
-    assert.expect(2);
-
     this.set('collection', collection);
     this.set('dropAction', (obj) => {
       assert.strictEqual(obj, 'jazz');

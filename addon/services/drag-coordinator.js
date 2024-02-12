@@ -125,10 +125,10 @@ export default class DragCoordinator extends Service {
     let b = overElement.args.content;
 
     const aSortable = sortComponents.find((component) =>
-      component.sortableObjectList.find((sortable) => isEqual(sortable, a))
+      component.sortableObjectList.find((sortable) => isEqual(sortable, a)),
     );
     const bSortable = sortComponents.find((component) =>
-      component.sortableObjectList.find((sortable) => isEqual(sortable, b))
+      component.sortableObjectList.find((sortable) => isEqual(sortable, b)),
     );
     const swap = aSortable === bSortable;
 
