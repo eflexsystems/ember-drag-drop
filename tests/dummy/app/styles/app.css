@@ -1,4 +1,5 @@
-html, body {
+html,
+body {
   margin: 20px;
   font-size: 14px;
 }
@@ -26,10 +27,6 @@ html, body {
   font-size: 125%;
 }
 
-.author {
-  font-size: 70%;
-}
-
 .rated-cards {
   float: left;
   margin: 15px;
@@ -43,6 +40,7 @@ html, body {
   padding-bottom: 2px;
 }
 
+/* stylelint-disable-next-line selector-class-pattern */
 .dropTarget {
   width: 300px;
   height: 100px;
@@ -53,9 +51,13 @@ html, body {
   font-size: 16px;
   padding: 1em;
 }
+
+/* stylelint-disable-next-line selector-class-pattern */
 .dropTarget.accepts-drag {
   background-color: cadetblue;
 }
+
+/* stylelint-disable-next-line selector-class-pattern */
 .dragObject {
   position: relative;
   margin-top: 100px;
@@ -68,6 +70,8 @@ html, body {
   padding: 1em;
   color: white;
 }
+
+/* stylelint-disable-next-line selector-class-pattern */
 .sortObject {
   margin: 1em;
   width: 300px;
@@ -78,23 +82,31 @@ html, body {
   font-size: 16px;
   padding: 1em;
   color: white;
-
 }
+
+/* stylelint-disable-next-line selector-class-pattern */
 .u-pullLeft {
   float: left;
 }
+
+/* stylelint-disable-next-line selector-class-pattern */
 .u-marginLeft {
   margin-left: 10%;
 }
+
+/* stylelint-disable-next-line selector-class-pattern */
 .u-fullBlock {
   display: inline-block;
   width: 100%;
 }
+
+/* stylelint-disable-next-line selector-class-pattern */
 .u-halfBlock {
   display: inline-block;
   width: 50%;
 }
 
+/* stylelint-disable-next-line selector-class-pattern */
 .dragHandle {
   display: inline-block;
   position: absolute;

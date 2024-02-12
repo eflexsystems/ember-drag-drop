@@ -35,7 +35,7 @@ export default class DraggableObject extends Component {
 
     if (
       !this.dragCoordinator.enableSort &&
-      this.dragCoordinator.sortComponentController
+      this.dragCoordinator.sortComponent
     ) {
       //disable drag if sorting is disabled
       event.preventDefault();

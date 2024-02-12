@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 import { setupRenderingTest } from 'ember-qunit';
-import hbs from 'htmlbars-inline-precompile';
+import { hbs } from 'ember-cli-htmlbars';
 import { drag } from '@eflexsystems/ember-drag-drop/test-support/helpers/drag-drop';
 import { find, render } from '@ember/test-helpers';
 
@@ -20,8 +20,6 @@ module('Integration | Helpers', function (hooks) {
   `;
 
   test('drag helper drags to a draggable object target and calls the action upon drop', async function (assert) {
-    assert.expect(1);
-
     this.set('collection', collection);
     this.set('dropAction', (obj) => {
       assert.strictEqual(obj, 'hiphop');
@@ -33,8 +31,6 @@ module('Integration | Helpers', function (hooks) {
   });
 
   test('drag helper allows a callback to be called before dropping', async function (assert) {
-    assert.expect(2);
-
     this.set('collection', collection);
     this.set('dropAction', (obj) => {
       assert.strictEqual(obj, 'jazz');

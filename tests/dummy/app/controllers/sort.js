@@ -1,17 +1,17 @@
 import Controller from '@ember/controller';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
-import { A } from '@ember/array';
+import { TrackedArray } from 'tracked-built-ins';
 
 export default class SortExample extends Controller {
-  @tracked sortableObjectList = A([
+  @tracked sortableObjectList = new TrackedArray([
     { id: 1, title: 'Number 1' },
     { id: 2, title: 'Number 2' },
     { id: 3, title: 'Number 3' },
     { id: 4, title: 'Number 4' },
   ]);
 
-  @tracked sortableObjectList2 = A([
+  @tracked sortableObjectList2 = new TrackedArray([
     { id: 1, title: 'Number 5' },
     { id: 2, title: 'Number 6' },
     { id: 3, title: 'Number 7' },
