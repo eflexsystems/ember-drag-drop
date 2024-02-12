@@ -19,7 +19,7 @@ function shiftInPlace(items, a, b) {
 }
 
 export default class DragCoordinator extends Service {
-  sortComponentController;
+  sortComponent;
   currentDragObject;
 
   #currentOffsetItem;
@@ -29,11 +29,11 @@ export default class DragCoordinator extends Service {
   #sortComponents = {};
 
   get enableSort() {
-    return this.sortComponentController?.enableSort ?? false;
+    return this.sortComponent?.enableSort ?? false;
   }
 
   get useSwap() {
-    return this.sortComponentController?.useSwap;
+    return this.sortComponent?.useSwap;
   }
 
   pushSortComponent(component) {

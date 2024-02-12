@@ -30,8 +30,8 @@ export default class SortableObjects extends Component {
   willDestroy() {
     super.willDestroy(...arguments);
     this.dragCoordinator.removeSortComponent(this);
-    if (this.dragCoordinator.sortComponentController === this) {
-      this.dragCoordinator.sortComponentController = null;
+    if (this.dragCoordinator.sortComponent === this) {
+      this.dragCoordinator.sortComponent = null;
     }
   }
 
@@ -42,7 +42,7 @@ export default class SortableObjects extends Component {
       event.preventDefault();
       return false;
     }
-    this.dragCoordinator.sortComponentController = this;
+    this.dragCoordinator.sortComponent = this;
   }
 
   @action
@@ -65,7 +65,7 @@ export default class SortableObjects extends Component {
   onDrop(event) {
     event.stopPropagation();
     event.preventDefault();
-    this.dragCoordinator.sortComponentController = null;
+    this.dragCoordinator.sortComponent = null;
     if (this.enableSort) {
       this.args.onSortEnd?.(this.sortableObjectList, event);
     }
