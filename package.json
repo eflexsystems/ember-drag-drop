@@ -1,6 +1,6 @@
 {
   "name": "@eflexsystems/ember-drag-drop",
-  "version": "0.9.1",
+  "version": "1.0.0",
   "description": "Addon for Ember CLI to do drag and drop",
   "scripts": {
     "build": "ember build --environment=production",
