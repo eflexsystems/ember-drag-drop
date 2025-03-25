@@ -65,7 +65,7 @@
     "webpack": "^5.89.0"
   },
   "peerDependencies": {
-    "@ember/test-helpers": "^4.0.5",
+    "@ember/test-helpers": "^4.0.4",
     "ember-source": ">= 4.0.0"
   },
   "keywords": [
